@@ -74,7 +74,9 @@ Motion is the main storyteller. Rules:
 2. **Constant camera speed** — scroll maps linearly to time; speed ramps feel broken under user control.
 3. **No motion blur / flicker** — every frame is a still the user can park on.
 4. **Handoff frames:** first frame ≈ hero art, last frame ≈ next section's background. We design these endpoints first, then generate the motion between them (Kling first-frame + last-frame mode).
-   - **Video 1 last frame (spec):** single bottle (Original, green cap) at 60–70% of frame height in the right third; left half is near-black bar darkness with soft red neon — reserved for the next block's HTML headline. Camera at label height, label sharp and readable; amber glass body prominent with warm backlight and visible liquid (Video 2 dives into this glass area); other bottles out of frame or blurred; no motion blur.
+   - **Video 1 last frame: ✅ RECEIVED & APPROVED** (owner's photo: single Original bottle center-right, sharp label at camera height, warm glow through amber glass, condensation; left half near-black for the next block's headline; blurred disco ball and red neon on the right; no motion blur). Keep the original photo at full resolution — the page swaps the 1080p video frame for this photo at the scroll rest point, and the digital zoom to Video 2 runs on it.
+   - **Continuity note:** in the packshot (first frame) the disco ball is on the LEFT; in the last frame it's on the RIGHT → the camera move is a push-in with a gentle LEFT arc around the bottles, drifting the disco ball across the background from left to right. This is written into the Video 1 prompt.
+   - **Video 2 first frame:** a tight crop of the approved last-frame photo — lower third of the bottle where the amber glass glows brightest.
    - **Endpoint sourcing:** prefer REAL photos for both endpoints (same bar, real bottles) and let Kling generate only the motion between them — this nearly eliminates label warping. Fallback: generate the last frame as an image (prompt kept with the video prompts).
    - **V1→V2 stitch:** no hard cut — a scroll-driven digital zoom on V1's last frame (canvas scale) lands exactly on V2's first frame (a tighter crop of the same glass).
 5. **No burned-in text** — headlines are live HTML on top.
@@ -86,13 +88,11 @@ Implementation: 10 s clip → ~200–240 frames → AVIF/WebP sequence drawn to 
 
 **Video 1 — HERO PUSH-IN** (image-to-video; start frame = the NIU packshot photo; 10 s, Professional mode; camera: slow push-in):
 
-> Ultra-smooth cinematic dolly shot in a dark night bar. Four amber glass bottles of NIU botanical tonic stand in a row on a black steel bar counter. The camera pushes in slowly toward the bottles at a perfectly constant speed, one single continuous take. Behind them a mirrored disco ball rotates very slowly, scattering tiny silver glints across the scene; a deep red neon glow breathes gently in the background haze. Fine condensation droplets on the amber glass catch the warm light. The bottle labels stay perfectly sharp, rigid and undistorted. Photorealistic, shallow depth of field, moody speakeasy atmosphere, ultra slow motion, locked stable camera, no cuts.
+> Ultra-smooth cinematic dolly shot in a dark night bar. Four amber glass bottles of NIU botanical tonic stand in a row on a black steel bar counter. The camera pushes in slowly toward the bottles and arcs gently to the left around them at a perfectly constant speed, one single continuous take, so the mirrored disco ball drifts smoothly across the background from left to right until it settles behind the right side of the Original bottle. The disco ball rotates very slowly, scattering tiny silver glints across the scene; a deep red neon glow breathes gently in the background haze. Fine condensation droplets on the amber glass catch the warm light. The bottle labels stay perfectly sharp, rigid and undistorted. Photorealistic, shallow depth of field, moody speakeasy atmosphere, ultra slow motion, stable camera, no cuts.
+
+> Mode: image-to-video with BOTH endpoints — first frame = four-bottle packshot photo, last frame = approved single-bottle photo.
 
 > **Negative prompt:** warped text, distorted labels, changing letters, extra bottles, duplicated objects, hands, people, faces, camera shake, flicker, jump cut, cross-fade, morphing, cartoon, oversaturated
-
-**Video 1 — LAST FRAME as a still image** (only if a real photo can't be shot; Midjourney / Kling image mode):
-
-> Cinematic close-up of a single 200 ml amber glass bottle of NIU botanical tonic with a green cap and cream label, standing on a black steel bar counter in a dark night bar. Bottle positioned in the right third of the frame, left side of the frame is near-black empty space with a soft deep-red neon glow and one or two silver disco-ball glints. Camera at label height, label perfectly sharp and readable, warm backlight glowing through the amber glass showing the liquid inside, fine condensation droplets. Photorealistic, shallow depth of field, moody speakeasy atmosphere, no motion blur, no people, no extra text.
 
 **Video 2 — DIVE INTO THE LIQUID** (transition hero → About; start frame = close-up crop of one bottle from Video 1's last frame):
 
