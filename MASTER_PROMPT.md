@@ -82,7 +82,9 @@ Motion is the main storyteller. Rules:
 5. **No burned-in text** — headlines are live HTML on top.
 6. **Label caution:** AI video warps printed text; keep label motion slow, avoid extreme label close-ups mid-move, and be ready to patch the label in post on hero frames.
 
-Implementation: 10 s clip → ~200–240 frames → AVIF/WebP sequence drawn to `<canvas>`, scrubbed by GSAP ScrollTrigger with Lenis; `<video currentTime>` fallback; static poster + fade for `prefers-reduced-motion` and weak devices.
+**Durations:** Videos 1 & 2 — **10 s each** (the max; duration = frame budget for scrubbing, and slower camera motion warps labels less). Video 3 loops — **5 s** is enough (they autoplay, not scrubbed). If Kling offers 60 fps export or frame interpolation, take it for Videos 1–2 — more frames = smoother scrub.
+
+Implementation: 10 s clip → ~200–240 frames → AVIF/WebP sequence drawn to `<canvas>`, scrubbed by GSAP ScrollTrigger with Lenis (hero scene mapped to ~3–4 viewport heights of scroll); `<video currentTime>` fallback; static poster + fade for `prefers-reduced-motion` and weak devices.
 
 ### Kling AI prompts (v1)
 
