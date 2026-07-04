@@ -2,10 +2,42 @@ import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
 
 const FLAVORS = [
-  { name: "Pure", color: "var(--color-flavor-pure)", note: "The clean base. Coconut water, electrolytes, nothing to hide." },
-  { name: "Lime", color: "var(--color-flavor-lime)", note: "Cuts through the dark like a squeeze of lime over ice." },
-  { name: "Piña", color: "var(--color-flavor-pina)", note: "The piña colada's sober older brother." },
-  { name: "Ginger Yuzu", color: "var(--color-flavor-gingeryuzu)", note: "Heat and citrus. Candidate for the lightly sparkling edition." },
+  {
+    name: "Pure",
+    color: "var(--color-flavor-pure)",
+    cap: "ivory",
+    note: "The clean base. Coconut water, electrolytes, nothing to hide.",
+    serve: "Silver tequila · NIU Pure · lime wedge",
+    image: "/img/bottle-original.webp",
+    imageNote: "v1 render — label reads Original, becomes Pure in the v2 pass",
+  },
+  {
+    name: "Lime",
+    color: "var(--color-flavor-lime)",
+    cap: "green",
+    note: "Cuts through the dark like a squeeze of lime over ice.",
+    serve: "Dry gin · NIU Lime · crushed ice",
+    image: null,
+    imageNote: null,
+  },
+  {
+    name: "Piña",
+    color: "var(--color-flavor-pina)",
+    cap: "golden",
+    note: "The piña colada's sober older brother.",
+    serve: "White rum · NIU Piña · nothing else",
+    image: null,
+    imageNote: null,
+  },
+  {
+    name: "Ginger Yuzu",
+    color: "var(--color-flavor-gingeryuzu)",
+    cap: "blue",
+    note: "Heat and citrus. Candidate for the lightly sparkling edition.",
+    serve: "Japanese whisky · NIU Ginger Yuzu · highball ice",
+    image: null,
+    imageNote: null,
+  },
 ] as const;
 
 const MENU = [
@@ -142,36 +174,94 @@ function Menu() {
 
 function Flavors() {
   return (
-    <section className="bg-espresso-2">
-      <div className="mx-auto max-w-6xl px-6 py-32">
-        <Reveal>
-          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The lineup</p>
-          <h2 className="font-display mb-16 text-4xl md:text-5xl">Four ways after dark</h2>
-        </Reveal>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {FLAVORS.map((f, i) => (
-            <Reveal key={f.name} delay={i * 100}>
-              <div className="group relative overflow-hidden rounded-lg border border-cream/10 bg-espresso p-8 transition-transform duration-500 hover:-translate-y-2">
-                <div
-                  className="absolute inset-x-0 top-0 h-1"
-                  style={{ background: f.color }}
-                />
-                <div
-                  className="pointer-events-none absolute -top-24 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full opacity-20 blur-3xl transition-opacity duration-700 group-hover:opacity-50"
-                  style={{ background: f.color }}
-                />
-                <p className="text-xs tracking-[0.4em] text-cream/50 uppercase">NIU</p>
-                <h3 className="font-display mt-2 text-2xl" style={{ color: f.color }}>
+    <>
+      {/* Lineup intro */}
+      <section className="bg-espresso-2">
+        <div className="mx-auto max-w-6xl px-6 pt-32 pb-8">
+          <Reveal>
+            <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The lineup</p>
+            <h2 className="font-display mb-4 text-4xl md:text-5xl">Four ways after dark</h2>
+            <p className="max-w-xl text-cream/60">
+              One bottle, four moods. Cap color is the only thing that changes —
+              the rest is the same clean base.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* One full block per bottle */}
+      {FLAVORS.map((f, i) => (
+        <section key={f.name} className="relative overflow-hidden bg-espresso-2">
+          {/* flavor-tinted ambient glow */}
+          <div
+            className="pointer-events-none absolute top-1/2 h-[70vh] w-[70vh] -translate-y-1/2 rounded-full opacity-[0.07] blur-[110px]"
+            style={{
+              background: f.color,
+              [i % 2 === 0 ? "right" : "left"]: "-15vh",
+            } as React.CSSProperties}
+          />
+          <div
+            className={`mx-auto flex min-h-screen max-w-6xl flex-col items-center gap-12 px-6 py-24 md:flex-row md:gap-20 ${
+              i % 2 === 1 ? "md:flex-row-reverse" : ""
+            }`}
+          >
+            {/* copy */}
+            <div className="flex-1">
+              <Reveal>
+                <p className="text-xs tracking-[0.4em] text-cream/50 uppercase">
+                  NIU · {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3
+                  className="font-display mt-4 text-5xl md:text-7xl"
+                  style={{ color: f.color }}
+                >
                   {f.name}
                 </h3>
-                <p className="mt-4 text-sm leading-relaxed text-cream/70">{f.note}</p>
-                <p className="mt-6 text-xs text-cream/40">200 ml · coconut mixer</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
+              </Reveal>
+              <Reveal delay={120}>
+                <p className="mt-8 max-w-md text-lg leading-relaxed text-cream/80">{f.note}</p>
+              </Reveal>
+              <Reveal delay={200}>
+                <div className="mt-10 max-w-md border-t border-cream/10 pt-6">
+                  <p className="text-xs tracking-[0.3em] text-cream/40 uppercase">Serve it</p>
+                  <p className="mt-2 text-cream/70">{f.serve}</p>
+                </div>
+                <p className="mt-8 text-xs text-cream/40">
+                  200 ml · {f.cap} cap · coconut mixer
+                </p>
+              </Reveal>
+            </div>
+            {/* bottle visual */}
+            <div className="w-full max-w-sm flex-1 md:max-w-md">
+              <Reveal delay={150}>
+                {f.image ? (
+                  <figure>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={f.image}
+                      alt={`NIU ${f.name} bottle`}
+                      className="w-full rounded-lg object-cover"
+                    />
+                    {f.imageNote && (
+                      <figcaption className="mt-3 text-xs text-cream/35 italic">
+                        {f.imageNote}
+                      </figcaption>
+                    )}
+                  </figure>
+                ) : (
+                  <div
+                    className="flex aspect-[3/4] w-full items-center justify-center rounded-lg border border-dashed p-8 text-center text-sm text-cream/40"
+                    style={{ borderColor: `color-mix(in srgb, ${f.color} 35%, transparent)` }}
+                  >
+                    Bottle render coming — Midjourney prompt ready in the master prompt
+                  </div>
+                )}
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      ))}
+    </>
   );
 }
 
