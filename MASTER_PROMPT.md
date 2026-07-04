@@ -76,7 +76,8 @@ Motion is the main storyteller. Rules:
 4. **Handoff frames:** first frame ≈ hero art, last frame ≈ next section's background. We design these endpoints first, then generate the motion between them (Kling first-frame + last-frame mode).
    - **Video 1 last frame: ✅ RECEIVED & APPROVED** (owner's photo: single Original bottle center-right, sharp label at camera height, warm glow through amber glass, condensation; left half near-black for the next block's headline; blurred disco ball and red neon on the right; no motion blur). Keep the original photo at full resolution — the page swaps the 1080p video frame for this photo at the scroll rest point, and the digital zoom to Video 2 runs on it.
    - **Continuity note:** in the packshot (first frame) the disco ball is on the LEFT; in the last frame it's on the RIGHT → the camera move is a push-in with a gentle LEFT arc around the bottles, drifting the disco ball across the background from left to right. This is written into the Video 1 prompt.
-   - **Video 2 first frame:** a tight crop of the approved last-frame photo — lower third of the bottle where the amber glass glows brightest.
+   - **Video 2 first frame:** a tight crop of the approved last-frame photo — lower third of the bottle where the amber glass glows brightest. Crop at the video's aspect ratio (16:9) — Kling endpoint frames must match the output aspect.
+   - **Video 2 last frame (spec):** full-frame abstract "liquid wall" — the screen entirely filled with glowing amber liquid, NO recognizable objects (no glass edges, no bottle contour, no label, no liquid surface line). Low contrast and calm (it's the About section's text background), brighter toward the center, frame edges fading to near-black so it merges with the dark page. Generate as an image (prompt below) at max resolution / upscaled — it doubles as the About section's static background.
    - **Endpoint sourcing:** prefer REAL photos for both endpoints (same bar, real bottles) and let Kling generate only the motion between them — this nearly eliminates label warping. Fallback: generate the last frame as an image (prompt kept with the video prompts).
    - **V1→V2 stitch:** no hard cut — a scroll-driven digital zoom on V1's last frame (canvas scale) lands exactly on V2's first frame (a tighter crop of the same glass).
 5. **No burned-in text** — headlines are live HTML on top.
@@ -101,6 +102,12 @@ Implementation: 10 s clip → ~200–240 frames → AVIF/WebP sequence drawn to 
 > One continuous macro camera move: the camera glides slowly forward into the amber glass of a NIU bottle until the frame is completely filled with glowing amber liquid. Inside the liquid: slow swirling currents, tiny rising micro-bubbles, warm rays of light and faint red neon refractions dancing through the water. Constant camera speed, hypnotic and calm, one single take with no cuts. The clip ends on an abstract full-frame liquid texture, softly lit, seamless. Photorealistic macro, ultra slow motion, high detail.
 
 > **Negative prompt:** cuts, scene change, camera shake, flicker, morphing objects, text, hands, people, cartoon, noise artifacts
+
+> Mode: image-to-video with BOTH endpoints — first frame = 16:9 crop of the approved bottle photo (lower third of the bottle), last frame = generated "liquid wall" image. 10 s.
+
+**Video 2 — LAST FRAME as a still image** (Midjourney / Kling image mode, max resolution):
+
+> Abstract full-frame macro texture of glowing amber liquid seen from deep inside the liquid: soft swirling currents of warm golden-amber tones, tiny suspended micro-bubbles drifting upward, gentle rays of warm light with one faint deep-red refraction hint, the edges of the frame fading smoothly into near-black darkness. Calm, low-contrast, seamless background texture with no recognizable objects — no glass, no bottle, no label, no liquid surface line, no horizon. Photorealistic macro photography, high detail, softly defocused toward the edges, no text, no people.
 
 **Video 3 (optional) — FLAVOR LIQUID LOOPS** (backgrounds for the four flavor blocks; text-to-video, seamless-loop feel):
 
