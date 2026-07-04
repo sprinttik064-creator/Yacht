@@ -200,7 +200,7 @@ function Flavors() {
             } as React.CSSProperties}
           />
           <div
-            className={`mx-auto flex min-h-screen max-w-6xl flex-col items-center gap-12 px-6 py-24 md:flex-row md:gap-20 ${
+            className={`mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 py-16 md:min-h-screen md:flex-row md:gap-20 md:py-24 ${
               i % 2 === 1 ? "md:flex-row-reverse" : ""
             }`}
           >
@@ -348,8 +348,8 @@ function Lookbook() {
             </figure>
           </Reveal>
           <Reveal>
-            <div className="flex h-[50vh] items-center justify-center rounded-lg border border-dashed border-cream/20 text-sm text-cream/40">
-              Serve shots, hands, cocktails — imagery to be added block by block
+            <div className="flex h-[28vh] items-center justify-center rounded-lg border border-dashed border-cream/20 px-8 text-center text-sm text-cream/40 md:h-[50vh]">
+              Serve shots, hands, moments — imagery to be added block by block
             </div>
           </Reveal>
         </div>
