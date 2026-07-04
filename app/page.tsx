@@ -1,6 +1,5 @@
 import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
-import BottleSpinLazy from "@/components/BottleSpinLazy";
 
 const FLAVORS = [
   {
@@ -58,7 +57,6 @@ export default function Home() {
       <About />
       <Category />
       <Menu />
-      <BottleSpinLazy />
       <Flavors />
       <Gallery />
       <Moodboard />
