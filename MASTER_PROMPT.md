@@ -8,30 +8,29 @@
 
 ## 1. Project in one sentence
 
-An immersive, bar-styled, single-page presentation website for a premium coconut water brand, built to make a marketing influencer say *"I want to work with this product"* within the first 10 seconds of scrolling.
+An immersive, bar-styled, single-page presentation website for **NIU — the premium coconut mixer**, built to make **Flo Hugel** say *"I want this on my tables"* within the first 10 seconds of scrolling.
 
-## 2. Product
+## 2. Product (per briefing, July 2026)
 
-- **Product:** Premium coconut water.
-- **Brand name:** **NIU**. No logo yet — we design a **wordmark** as part of the brandbook step.
-- **Packshot (canonical product visual, photo received):** four 200 ml amber glass bottles on a black steel bar counter, cream label — "BOTANICAL TONIC / NIU / [botanical illustration] / flavor / 200 ml / NATURAL INGREDIENTS". Four flavors with color-coded caps and label accents:
-  - **Original** — green cap, black botanical print
-  - **Yuzu** — blue cap, blue print
-  - **Hibiscus** — red-orange cap, red print
-  - **Wild Berry** — purple cap, purple print
-  - Scene: dark bar, mirrored **disco ball**, deep **red neon glow** in the background haze. All imagery, video and 3D must match this packshot.
-- **Flavor color system:** each flavor's cap color becomes a section accent on the site (galleries, menu cards, liquid tints in transitions).
-- **Positioning angle:** coconut water reimagined as a bar-grade ingredient — the heart of mocktails and cocktails, not a gym drink. "From the palm straight to the bar counter."
-- **Key product claims (placeholders, owner will refine):**
-  - 100% pure, never from concentrate
-  - Naturally isotonic, zero added sugar
-  - Single-origin coconuts, cold-filled
-  - Designed for mixology: balanced sweetness, clean finish
-
+- **Product:** premium coconut water **mixer** for the club / bottle-service channel. Base: coconut water, **no added sugar**, added electrolytes (magnesium, dosed sodium; potassium naturally ~500 mg). **No caffeine, no taurine — the anti-energy-drink.**
+- **Range:** **Pure / Lime / Piña / Ginger Yuzu.** Launch still; Ginger Yuzu is the candidate for a lightly sparkling edition.
+- **Packaging:** 200 ml amber glass, UHT (12 months unrefrigerated), aluminum screw cap, **cap color = flavor**. 200 ml is the premium-mixer format (Fever-Tree playbook); 250 ml deliberately avoided (Red Bull format).
+- **Category positioning:** competes only with cranberry/orange juice on the bottle-service table — creates a new category. Distribution via Flo's DJ residencies in top clubs worldwide.
+- **Business model (context for tone, NOT published on the site):** club buys ~€1.80/bottle, sells at €9–12 in bottle service; Y1 seeding ≈ €200k, Y3 with retail ≈ €2.4m conservative. Deal terms/legal/trademark are out of scope until Flo is on board.
+- **Brand name:** **NIU** (Hawaiian for coconut; working title — COCO HUGEL is the wildcard alternative). No logo yet — we design a **wordmark** as part of the brandbook step.
+- **Packshot v1 (received):** four 200 ml amber glass bottles on a black steel bar counter, cream label, colored caps; dark bar, mirrored **disco ball**, deep **red neon glow**. Scene and style are LOCKED — but v1 labels read "BOTANICAL TONIC" and flavors Original/Yuzu/Hibiscus/Wild Berry, which predate the briefing. **⚠️ Renders need a v2 pass** with category "COCONUT MIXER" and the real range.
+- **Flavor color system (v2, per briefing — cap color = flavor):**
+  - **Pure** — ivory/cream cap (the clean base)
+  - **Lime** — green cap
+  - **Piña** — golden-yellow cap
+  - **Ginger Yuzu** — blue cap (candidate for lightly sparkling edition)
+  - Each cap color becomes a section accent on the site (menu cards, liquid tints, hover glows).
+- **Midjourney prompt v2 for the packshot re-render:**
+  > Photorealistic product photograph in a dark upscale night club bar: four identical 200 ml amber glass bottles standing in a row on a black steel bar counter, each with an aluminum screw cap in a different color — ivory, green, golden yellow, blue. Cream paper labels reading "COCONUT MIXER / NIU / PURE" (then LIME, PIÑA, GINGER YUZU), small botanical line illustration on each label, "200 ml" at the bottom. Behind them a mirrored disco ball and a deep red neon glow in the dark haze, condensation on the glass, warm backlight through the amber bottles, shallow depth of field, shot on medium format, moody speakeasy lighting. --ar 3:2
 ## 3. Audience & goal
 
-- **Primary viewer:** a marketing influencer evaluating the brand for collaboration.
-- **Goal:** impress and intrigue → they reach the contact/collab block and get in touch.
+- **Primary viewer:** **Flo Hugel** — DJ with residencies in top clubs worldwide, launching a pregame/recovery supplement program for clubs; can't touch alcohol or energy drinks (exclusivity deals). NIU is the complementary healthy premium mixer Gena pitched him.
+- **Goal:** make the concept feel real and inevitable — the site is part of the pitch package (together with the deck and renders).
 - **Implication for design:** the site itself must feel like a piece of content worth sharing — cinematic, screenshot-able, "how did they do that" moments. Every section should look good in an Instagram story capture.
 
 ## 4. Language & tone of voice
@@ -153,6 +152,11 @@ Content note: owner supplies copy and imagery block-by-block as we build; until 
 - [x] Hero centerpiece: the amber **bottles** (per packshot), scroll-scrubbed video technique.
 - [x] No contacts / no contact form on the site.
 
+**Decided by the July 2026 briefing:**
+- [x] Category wording: **premium coconut mixer** (site copy switched; "botanical tonic" on v1 renders is a known mismatch until the v2 render pass).
+- [x] Range: Pure / Lime / Piña / Ginger Yuzu.
+
 **Open:**
-- [ ] Label says "BOTANICAL TONIC" while the product brief says coconut water — confirm the category wording to use on the site (e.g. "coconut water botanical tonic"?).
-- [ ] Which flavor leads the hero close-up (suggest Original)?
+- [ ] Regenerate packshot + hero videos with v2 labels (COCONUT MIXER, new flavors) — or keep v1 visuals for the Flo pitch and re-shoot after his yes?
+- [ ] Pitch deck (≤10 slides) and competitive-scan slide — companion deliverables to this site (in progress).
+- [ ] Name lock: NIU vs alternatives (COCO HUGEL wildcard) — affects wordmark step.

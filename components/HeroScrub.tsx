@@ -145,13 +145,13 @@ function HeroCopy() {
   return (
     <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
       <p className="mb-4 text-xs tracking-[0.5em] text-amber uppercase">
-        Botanical tonic
+        Premium coconut mixer
       </p>
       <h1 className="font-display text-[clamp(5rem,18vw,16rem)] leading-none tracking-tight text-cream">
         NIU
       </h1>
       <p className="mt-6 max-w-md px-6 text-sm tracking-widest text-cream/80 uppercase">
-        Coconut water, served after midnight
+        The anti-energy-drink. Served after midnight
       </p>
     </div>
   );

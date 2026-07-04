@@ -2,19 +2,20 @@ import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
 
 const FLAVORS = [
-  { name: "Original", color: "var(--color-flavor-original)", note: "The pure pour. Coconut water as the bartender intended." },
-  { name: "Yuzu", color: "var(--color-flavor-yuzu)", note: "A citrus edge that cuts through the dark." },
-  { name: "Hibiscus", color: "var(--color-flavor-hibiscus)", note: "Floral, tart, glowing red under the bar lights." },
-  { name: "Wild Berry", color: "var(--color-flavor-wildberry)", note: "Deep, dark and a little dangerous." },
+  { name: "Pure", color: "var(--color-flavor-pure)", note: "The clean base. Coconut water, electrolytes, nothing to hide." },
+  { name: "Lime", color: "var(--color-flavor-lime)", note: "Cuts through the dark like a squeeze of lime over ice." },
+  { name: "Piña", color: "var(--color-flavor-pina)", note: "The piña colada's sober older brother." },
+  { name: "Ginger Yuzu", color: "var(--color-flavor-gingeryuzu)", note: "Heat and citrus. Candidate for the lightly sparkling edition." },
 ] as const;
 
 const MENU = [
-  { item: "Pure coconut water", detail: "never from concentrate" },
-  { item: "Botanical infusion", detail: "natural ingredients only" },
-  { item: "Added sugar", detail: "none, ever" },
-  { item: "Naturally isotonic", detail: "balanced by the palm, not the lab" },
-  { item: "Amber glass bottle", detail: "200 ml, bar-counter format" },
-  { item: "Best served", detail: "chilled, after midnight" },
+  { item: "Base", detail: "pure coconut water, no added sugar" },
+  { item: "Electrolytes", detail: "magnesium + dosed sodium, added" },
+  { item: "Potassium", detail: "~500 mg, naturally occurring" },
+  { item: "Caffeine & taurine", detail: "none — the anti-energy-drink" },
+  { item: "Bottle", detail: "200 ml amber glass, aluminum cap" },
+  { item: "Keeps", detail: "12 months, no fridge required (UHT)" },
+  { item: "Best served", detail: "over ice, after midnight" },
 ] as const;
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
     <main>
       <HeroScrub />
       <About />
+      <Category />
       <Menu />
       <Flavors />
       <Gallery />
@@ -46,18 +48,58 @@ function About() {
         <Reveal>
           <p className="mb-6 text-xs tracking-[0.5em] text-amber uppercase">About</p>
           <h2 className="font-display text-4xl leading-tight md:text-6xl">
-            From the palm straight to the bar counter.
+            From the palm straight to the bottle-service table.
           </h2>
         </Reveal>
         <Reveal delay={150}>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-cream/85">
             NIU is coconut water that skipped the gym bag and went out instead.
-            Harvested from single-origin coconuts, infused with botanicals and
-            bottled in amber glass — built to stand on a backbar, not a shelf of
-            sports drinks.
+            No added sugar, real electrolytes, zero caffeine — a mixer that
+            takes care of the night while the night takes its course. Bottled
+            in 200 ml amber glass, built to stand next to the ice bucket, not
+            on a shelf of sports drinks.
           </p>
           <p className="mt-4 max-w-xl text-sm text-cream/50 italic">
-            [Placeholder copy — final text to be supplied by the owner.]
+            [Placeholder copy — final text to be refined together.]
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* The thesis: the bottle-service table has an empty fourth slot. */
+function Category() {
+  const slots = ["Cranberry", "Orange", "Soda"];
+  return (
+    <section className="bg-espresso">
+      <div className="mx-auto max-w-4xl px-6 py-32 text-center">
+        <Reveal>
+          <p className="mb-6 text-xs tracking-[0.5em] text-amber uppercase">The gap</p>
+          <h2 className="font-display text-3xl leading-tight md:text-5xl">
+            Every table in every club pours the same three mixers.
+          </h2>
+        </Reveal>
+        <Reveal delay={150}>
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-4">
+            {slots.map((s) => (
+              <span
+                key={s}
+                className="rounded-full border border-cream/15 px-6 py-3 text-sm tracking-widest text-cream/50 uppercase"
+              >
+                {s}
+              </span>
+            ))}
+            <span className="rounded-full border border-amber bg-amber/10 px-6 py-3 text-sm tracking-widest text-amber uppercase">
+              NIU
+            </span>
+          </div>
+        </Reveal>
+        <Reveal delay={250}>
+          <p className="mx-auto mt-12 max-w-xl text-lg leading-relaxed text-cream/75">
+            No alcohol. No caffeine. No conflicts. NIU opens the fourth slot on
+            the bottle-service table — and owns a category nobody else has
+            claimed.
           </p>
         </Reveal>
       </div>
@@ -123,7 +165,7 @@ function Flavors() {
                   {f.name}
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-cream/70">{f.note}</p>
-                <p className="mt-6 text-xs text-cream/40">200 ml · botanical tonic</p>
+                <p className="mt-6 text-xs text-cream/40">200 ml · coconut mixer</p>
               </div>
             </Reveal>
           ))}

@@ -3,9 +3,9 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  title: "NIU — Botanical Tonic",
+  title: "NIU — Premium Coconut Mixer",
   description:
-    "Coconut water reimagined as a bar-grade botanical tonic. Served chilled, after midnight.",
+    "The anti-energy-drink: a premium coconut water mixer built for the bottle-service table. Served chilled, after midnight.",
 };
 
 export default function RootLayout({
