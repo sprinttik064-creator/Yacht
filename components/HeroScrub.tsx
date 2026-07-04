@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { asset } from "@/lib/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FRAME_COUNT = 242;
-const frameSrc = (i: number) => `/hero/${String(i + 1).padStart(4, "0")}.webp`;
+const frameSrc = (i: number) => asset(`/hero/${String(i + 1).padStart(4, "0")}.webp`);
 
 /**
  * Scroll-scrubbed hero: 242 frames (Kling v2 videos: bar push-in → Pure bottle
@@ -129,7 +130,7 @@ export default function HeroScrub() {
       <section className="relative h-screen">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/img/bottle-pure.webp"
+          src={asset("/img/bottle-pure.webp")}
           alt="NIU botanical tonic bottle on a bar counter"
           className="absolute inset-0 h-full w-full object-cover"
         />

@@ -1,5 +1,6 @@
 import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
+import { asset } from "@/lib/asset";
 
 const FLAVORS = [
   {
@@ -65,7 +66,7 @@ function About() {
   return (
     <section
       className="relative bg-cover bg-center"
-      style={{ backgroundImage: "url(/img/liquid-wall.webp)" }}
+      style={{ backgroundImage: `url(${asset("/img/liquid-wall.webp")})` }}
     >
       <div className="absolute inset-0 bg-espresso/55" />
       <div className="relative mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-32">
@@ -188,7 +189,7 @@ function Flavors() {
               desktop so the room stays put while the flavors change the light */}
           <div
             className="absolute inset-0 bg-cover bg-center md:bg-fixed"
-            style={{ backgroundImage: "url(/img/empty-bar.webp)" }}
+            style={{ backgroundImage: `url(${asset("/img/empty-bar.webp")})` }}
           />
           <div className="absolute inset-0 bg-espresso-2/45" />
           {/* flavor-tinted ambient glow */}
@@ -235,7 +236,7 @@ function Flavors() {
               <Reveal delay={150}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={f.image}
+                  src={asset(f.image)}
                   alt={`NIU ${f.name} bottle`}
                   className="w-full rounded-lg object-cover"
                 />
@@ -269,7 +270,7 @@ function Gallery() {
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
               key={s.src}
-              src={s.src}
+              src={asset(s.src)}
               alt={s.alt}
               className="h-[38vh] w-auto shrink-0 rounded-lg object-cover md:h-[60vh]"
             />
@@ -301,7 +302,7 @@ function Moodboard() {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <Reveal className="col-span-2 row-span-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/packshot.webp" alt="NIU bar scene" className="h-full w-full rounded-lg object-cover" />
+            <img src={asset("/img/packshot.webp")} alt="NIU bar scene" className="h-full w-full rounded-lg object-cover" />
           </Reveal>
           {swatches.map((s, i) => (
             <Reveal key={s.hex} delay={i * 60}>
@@ -341,7 +342,7 @@ function Lookbook() {
           <Reveal>
             <figure>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/bottle-pina.webp" alt="NIU Piña under the bar light" className="w-full rounded-lg" />
+              <img src={asset("/img/bottle-pina.webp")} alt="NIU Piña under the bar light" className="w-full rounded-lg" />
               <figcaption className="mt-4 text-sm text-cream/50 italic">
                 Piña, under the bar light. — editorial captions are placeholders
               </figcaption>

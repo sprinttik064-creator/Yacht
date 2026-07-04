@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import { asset } from "@/lib/asset";
 
 export const metadata: Metadata = {
   title: "NIU — Concept Deck",
@@ -47,7 +48,7 @@ export default function Deck() {
       <section className="relative flex h-screen snap-start flex-col items-center justify-center overflow-hidden text-center">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-35"
-          style={{ backgroundImage: "url(/img/packshot.webp)" }}
+          style={{ backgroundImage: `url(${asset("/img/packshot.webp")})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-espresso via-transparent to-espresso/60" />
         <div className="relative">
@@ -149,7 +150,7 @@ export default function Deck() {
       <section className="relative flex min-h-screen snap-start items-center overflow-hidden py-20 md:h-screen md:py-0">
         <div
           className="absolute inset-y-0 right-0 hidden w-1/2 bg-cover bg-center md:block"
-          style={{ backgroundImage: "url(/img/bottle-pure.webp)" }}
+          style={{ backgroundImage: `url(${asset("/img/bottle-pure.webp")})` }}
         />
         <div className="absolute inset-0 hidden bg-gradient-to-r from-espresso via-espresso/90 to-transparent md:block" />
         <div className="relative px-6 md:w-1/2 md:px-24">
@@ -168,7 +169,7 @@ export default function Deck() {
           <Reveal delay={300}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/img/bottle-pure.webp"
+              src={asset("/img/bottle-pure.webp")}
               alt="NIU 200 ml amber glass bottle"
               className="mt-10 w-full max-w-sm rounded-lg md:hidden"
             />
