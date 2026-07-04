@@ -122,10 +122,10 @@ function Menu() {
         <div className="space-y-6">
           {MENU.map((row, i) => (
             <Reveal key={row.item} delay={i * 80}>
-              <div className="flex items-end text-lg">
-                <span className="text-cream">{row.item}</span>
+              <div className="flex items-end text-base md:text-lg">
+                <span className="shrink-0 text-cream">{row.item}</span>
                 <span className="menu-leader" />
-                <span className="text-right text-cream/60">{row.detail}</span>
+                <span className="max-w-[55%] text-right text-cream/60">{row.detail}</span>
               </div>
             </Reveal>
           ))}
@@ -195,10 +195,10 @@ function Gallery() {
               key={s.src}
               src={s.src}
               alt={s.alt}
-              className="h-[60vh] w-auto shrink-0 rounded-lg object-cover"
+              className="h-[38vh] w-auto shrink-0 rounded-lg object-cover md:h-[60vh]"
             />
           ))}
-          <div className="flex h-[60vh] w-[40vw] shrink-0 items-center justify-center rounded-lg border border-dashed border-cream/20 text-sm text-cream/40">
+          <div className="flex h-[38vh] w-[60vw] shrink-0 items-center justify-center rounded-lg border border-dashed border-cream/20 px-4 text-center text-sm text-cream/40 md:h-[60vh] md:w-[40vw]">
             More shots coming — placeholder
           </div>
         </div>

@@ -34,6 +34,17 @@ export default function HeroScrub() {
     let rafId = 0;
     let destroyed = false;
 
+    // Horizontal focal point of the subject per frame, as a fraction of frame
+    // width. On portrait screens the 16:9 frame is cropped hard, so the crop
+    // window tracks the bottle: centered on the 4-bottle lineup, drifting right
+    // as the camera settles on the single Original bottle (~0.59), then back to
+    // center inside the abstract liquid.
+    const focalX = (i: number) => {
+      if (i <= 121) return 0.5 + (0.59 - 0.5) * (i / 121);
+      if (i <= 200) return 0.59 + (0.5 - 0.59) * ((i - 122) / 78);
+      return 0.5;
+    };
+
     const draw = () => {
       // nearest loaded frame at or below the requested one, so scrubbing
       // never blanks while later frames are still downloading
@@ -47,8 +58,10 @@ export default function HeroScrub() {
         const scale = Math.max(cw / img.width, ch / img.height);
         const w = img.width * scale;
         const h = img.height * scale;
+        const maxOff = Math.max(0, w - cw);
+        const x = Math.min(maxOff, Math.max(0, focalX(idx) * w - cw / 2));
         ctx.clearRect(0, 0, cw, ch);
-        ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+        ctx.drawImage(img, -x, (ch - h) / 2, w, h);
       }
       rafId = requestAnimationFrame(draw);
     };

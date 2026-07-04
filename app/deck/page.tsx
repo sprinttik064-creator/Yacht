@@ -25,7 +25,7 @@ function Slide({
 }) {
   return (
     <section
-      className={`relative flex h-screen snap-start flex-col justify-center overflow-hidden px-8 md:px-24 ${className}`}
+      className={`relative flex min-h-screen snap-start flex-col justify-center overflow-hidden px-6 py-20 md:h-screen md:px-24 md:py-0 ${className}`}
     >
       {kicker && (
         <Reveal>
@@ -41,7 +41,7 @@ export default function Deck() {
   return (
     <div
       data-lenis-prevent
-      className="h-screen snap-y snap-mandatory overflow-y-auto bg-espresso text-cream"
+      className="h-screen snap-y snap-proximity overflow-y-auto bg-espresso text-cream md:snap-mandatory"
     >
       {/* 1 · Cover */}
       <section className="relative flex h-screen snap-start flex-col items-center justify-center overflow-hidden text-center">
@@ -146,13 +146,13 @@ export default function Deck() {
       </Slide>
 
       {/* 5 · The bottle */}
-      <section className="relative flex h-screen snap-start items-center overflow-hidden">
+      <section className="relative flex min-h-screen snap-start items-center overflow-hidden py-20 md:h-screen md:py-0">
         <div
           className="absolute inset-y-0 right-0 hidden w-1/2 bg-cover bg-center md:block"
           style={{ backgroundImage: "url(/img/bottle-original.webp)" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-espresso via-espresso/90 to-transparent" />
-        <div className="relative px-8 md:w-1/2 md:px-24">
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-espresso via-espresso/90 to-transparent md:block" />
+        <div className="relative px-6 md:w-1/2 md:px-24">
           <Reveal>
             <p className="mb-8 text-xs tracking-[0.5em] text-amber uppercase">04 · The bottle</p>
             <h2 className="font-display text-4xl md:text-6xl">200 ml. Amber glass. On purpose.</h2>
@@ -169,6 +169,14 @@ export default function Deck() {
             <p className="mt-10 text-sm text-cream/40 italic">
               Render shows v1 label — final label reads &quot;Coconut mixer&quot;.
             </p>
+          </Reveal>
+          <Reveal delay={300}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/img/bottle-original.webp"
+              alt="NIU 200 ml amber glass bottle"
+              className="mt-10 w-full max-w-sm rounded-lg md:hidden"
+            />
           </Reveal>
         </div>
       </section>
