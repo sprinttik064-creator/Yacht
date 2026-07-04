@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const FLAVORS = [
   { name: "Pure", color: "var(--color-flavor-pure)", note: "The clean base" },
   { name: "Lime", color: "var(--color-flavor-lime)", note: "Citrus over ice" },
-  { name: "Piña", color: "var(--color-flavor-pina)", note: "The sober colada" },
+  { name: "Piña", color: "var(--color-flavor-pina)", note: "Pineapple after dark" },
   { name: "Ginger Yuzu", color: "var(--color-flavor-gingeryuzu)", note: "Sparkling candidate" },
 ] as const;
 
@@ -102,7 +102,7 @@ export default function Deck() {
         <Reveal delay={150}>
           <div className="mt-14 grid max-w-3xl gap-8 md:grid-cols-3">
             {[
-              ["No alcohol", "clear of every spirits exclusivity"],
+              ["No alcohol", "clear of every existing exclusivity"],
               ["No caffeine", "no taurine, nothing to regret at 4 a.m."],
               ["No conflicts", "competes only with cranberry & OJ"],
             ].map(([t, d]) => (
@@ -274,8 +274,8 @@ export default function Deck() {
               the night, NIU carries it.
             </p>
             <p>
-              — Clean of alcohol and energy-drink exclusivities — the one drink
-              category open to you.
+              — Free of every exclusivity conflict — the one drink category
+              open to you.
             </p>
             <p>
               — First nightlife-native mixer brand. The slot exists; nobody has
