@@ -89,7 +89,27 @@ Motion is the main storyteller. Rules:
 
 Implementation: 10 s clip → ~200–240 frames → AVIF/WebP sequence drawn to `<canvas>`, scrubbed by GSAP ScrollTrigger with Lenis (hero scene mapped to ~3–4 viewport heights of scroll); `<video currentTime>` fallback; static poster + fade for `prefers-reduced-motion` and weak devices.
 
-### Kling AI prompts (v1)
+### Kling AI prompts (v2 — current; v2 scene: COCONUT MIXER labels, disco ball LEFT, straight push-in, no arc)
+
+**Endpoints:** Video 1 first frame = packshot v2 (four bottles, ivory/green/golden/blue caps, disco ball left, red neon right — same scene as the Pure render). Video 1 last frame = the reworked 16:9 Pure frame (bottle in the right third, left half near-black). Video 2 first frame = Video 1's last frame. Video 2 last frame = the approved liquid-wall image (unchanged). Settings: image-to-video with BOTH endpoints, Professional mode, 10 s (or 5 s if the plan caps it), 3–4 takes each.
+
+**Video 1 — HERO PUSH-IN v2:**
+
+> Ultra-smooth cinematic dolly shot in a dark night club bar. Four amber glass bottles of NIU coconut mixer with colored aluminum caps — ivory, green, golden yellow, blue — stand in a row on a wet black steel bar counter. The camera pushes in slowly toward the bottles at a perfectly constant speed, one single continuous take, gradually settling on the ivory-capped PURE bottle, which ends standing in the right third of the frame while the left side of the frame falls into near-black bar darkness. A mirrored disco ball hangs on the left, rotating very slowly and scattering tiny silver glints; a deep red neon glow breathes gently in the background haze on the right. Fine condensation droplets on the amber glass catch the warm light. The bottle labels stay perfectly sharp, rigid and undistorted, lettering unchanged. Photorealistic, shallow depth of field, ultra slow motion, stable camera, no cuts.
+
+> **Negative prompt:** warped text, distorted labels, changing letters, extra bottles, duplicated objects, hands, people, faces, camera shake, flicker, jump cut, cross-fade, morphing, cartoon, oversaturated
+
+**Video 2 — DIVE INTO THE LIQUID v2:**
+
+> One continuous macro camera move: starting on a single amber glass bottle of NIU coconut mixer standing in the right third of the frame in a dark night bar, the camera glides slowly forward and slightly to the right, into the glowing lower half of the amber glass, until the frame is completely filled with luminous amber liquid. Inside the liquid: slow swirling currents, tiny rising micro-bubbles, warm rays of light and faint red neon refractions dancing through the water. Constant camera speed, hypnotic and calm, one single take with no cuts. The clip ends on an abstract full-frame liquid texture, softly lit, seamless. Photorealistic macro, ultra slow motion, high detail.
+
+> **Negative prompt:** cuts, scene change, camera shake, flicker, morphing objects, text appearing, hands, people, cartoon, noise artifacts
+
+**Video 3 — FLAVOR LIQUID LOOPS v2** (backgrounds for flavor blocks; tints follow the v2 caps):
+
+> Abstract full-frame liquid background: slowly swirling translucent liquid tinted {warm cream-white | fresh green | golden yellow | deep blue}, lit from behind with warm bar light, micro-bubbles drifting upward, gentle constant motion, dark edges fading to near-black, photorealistic macro, ultra slow motion, seamless calm loop, no cuts, no text.
+
+### Kling AI prompts (v1 — superseded, kept for history)
 
 **Video 1 — HERO PUSH-IN** (image-to-video; start frame = the NIU packshot photo; 10 s, Professional mode; camera: slow push-in):
 
