@@ -8,8 +8,8 @@ const FLAVORS = [
     cap: "ivory",
     note: "The clean base. Coconut water, electrolytes, nothing to hide.",
     serve: "Silver tequila · NIU Pure · lime wedge",
-    image: "/img/bottle-original.webp",
-    imageNote: "v1 render — label reads Original, becomes Pure in the v2 pass",
+    image: "/img/bottle-pure.webp",
+    imageNote: null,
   },
   {
     name: "Lime",

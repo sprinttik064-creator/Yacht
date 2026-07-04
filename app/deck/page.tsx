@@ -149,7 +149,7 @@ export default function Deck() {
       <section className="relative flex min-h-screen snap-start items-center overflow-hidden py-20 md:h-screen md:py-0">
         <div
           className="absolute inset-y-0 right-0 hidden w-1/2 bg-cover bg-center md:block"
-          style={{ backgroundImage: "url(/img/bottle-original.webp)" }}
+          style={{ backgroundImage: "url(/img/bottle-pure.webp)" }}
         />
         <div className="absolute inset-0 hidden bg-gradient-to-r from-espresso via-espresso/90 to-transparent md:block" />
         <div className="relative px-6 md:w-1/2 md:px-24">
@@ -165,15 +165,10 @@ export default function Deck() {
               <li>— Aluminum screw cap; cap color = flavor.</li>
             </ul>
           </Reveal>
-          <Reveal delay={250}>
-            <p className="mt-10 text-sm text-cream/40 italic">
-              Render shows v1 label — final label reads &quot;Coconut mixer&quot;.
-            </p>
-          </Reveal>
           <Reveal delay={300}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/img/bottle-original.webp"
+              src="/img/bottle-pure.webp"
               alt="NIU 200 ml amber glass bottle"
               className="mt-10 w-full max-w-sm rounded-lg md:hidden"
             />
