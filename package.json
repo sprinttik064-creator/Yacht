@@ -8,11 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.6.1",
+    "@types/three": "^0.185.0",
     "gsap": "^3.12.7",
     "lenis": "^1.1.20",
     "next": "^15.3.2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.7",
