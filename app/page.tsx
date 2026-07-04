@@ -10,6 +10,7 @@ const FLAVORS = [
     serve: "Silver tequila · NIU Pure · lime wedge",
     image: "/img/bottle-pure.webp",
     imageNote: null,
+    loop: "/loops/pure.mp4",
   },
   {
     name: "Lime",
@@ -19,6 +20,7 @@ const FLAVORS = [
     serve: "Dry gin · NIU Lime · crushed ice",
     image: null,
     imageNote: null,
+    loop: null,
   },
   {
     name: "Piña",
@@ -28,6 +30,7 @@ const FLAVORS = [
     serve: "White rum · NIU Piña · nothing else",
     image: null,
     imageNote: null,
+    loop: null,
   },
   {
     name: "Ginger Yuzu",
@@ -37,6 +40,7 @@ const FLAVORS = [
     serve: "Japanese whisky · NIU Ginger Yuzu · highball ice",
     image: null,
     imageNote: null,
+    loop: null,
   },
 ] as const;
 
@@ -192,6 +196,20 @@ function Flavors() {
       {/* One full block per bottle */}
       {FLAVORS.map((f, i) => (
         <section key={f.name} className="relative overflow-hidden bg-espresso-2">
+          {/* flavor liquid loop, heavily dimmed to stay a background */}
+          {f.loop && (
+            <>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                src={f.loop}
+                className="absolute inset-0 h-full w-full object-cover opacity-20"
+              />
+              <div className="absolute inset-0 bg-espresso-2/60" />
+            </>
+          )}
           {/* flavor-tinted ambient glow */}
           <div
             className="pointer-events-none absolute top-1/2 h-[70vh] w-[70vh] -translate-y-1/2 rounded-full opacity-[0.07] blur-[110px]"
