@@ -6,13 +6,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FRAME_COUNT = 242;
+const FRAME_COUNT = 121;
 const frameSrc = (i: number) => `/hero/${String(i + 1).padStart(4, "0")}.webp`;
 
 /**
- * Scroll-scrubbed hero: 242 frames (Kling videos 1+2 concatenated) drawn to a
- * canvas, frame index driven by scroll progress across a 500vh pinned section.
- * The last frame equals the About section's background, so unpinning is seamless.
+ * Scroll-scrubbed hero: Kling frames drawn to a canvas, frame index driven by
+ * scroll progress across the pinned section. Currently v2 Video 1 only
+ * (121 frames, bar push-in → single Pure bottle); the liquid-dive handoff into
+ * About returns when Video 2 v2 is cut in (then FRAME_COUNT goes back to 242
+ * and the pin back to 500vh).
  */
 export default function HeroScrub() {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -37,13 +39,8 @@ export default function HeroScrub() {
     // Horizontal focal point of the subject per frame, as a fraction of frame
     // width. On portrait screens the 16:9 frame is cropped hard, so the crop
     // window tracks the bottle: centered on the 4-bottle lineup, drifting right
-    // as the camera settles on the single Original bottle (~0.59), then back to
-    // center inside the abstract liquid.
-    const focalX = (i: number) => {
-      if (i <= 121) return 0.5 + (0.59 - 0.5) * (i / 121);
-      if (i <= 200) return 0.59 + (0.5 - 0.59) * ((i - 122) / 78);
-      return 0.5;
-    };
+    // as the camera settles on the Pure bottle (~0.73 in the v2 last frame).
+    const focalX = (i: number) => 0.5 + (0.73 - 0.5) * (i / (FRAME_COUNT - 1));
 
     const draw = () => {
       // nearest loaded frame at or below the requested one, so scrubbing
@@ -138,7 +135,7 @@ export default function HeroScrub() {
   }
 
   return (
-    <div ref={wrapRef} className="relative h-[500vh]">
+    <div ref={wrapRef} className="relative h-[300vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
         <canvas ref={canvasRef} className="h-full w-full" />
         <div ref={overlayRef}>

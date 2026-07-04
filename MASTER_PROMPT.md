@@ -161,7 +161,7 @@ Content note: owner supplies copy and imagery block-by-block as we build; until 
 ## 9. Build order (each step reviewed before the next)
 
 1. ✅ This master prompt — agree on it.
-2. ✅ Hero videos generated (Kling 3.0, 2×5 s / 121 frames each, approved) and cut into 242 WebP frames (`public/hero/`, 16:9 crop removes the watermark). Source clips + full-res stills in `assets-src/`.
+2. ✅ Hero video v2 (Video 1, Kling 3.0, 5 s / 121 frames: COCONUT MIXER labels, straight push-in ending on Pure right-third) received, approved and cut into `public/hero/` (16:9 crop removes the watermark); packshot.webp now = its first frame. Hero pin temporarily 300vh / 121 frames. **Waiting on:** Video 2 v2 (dive: first frame = V1 last frame → liquid wall) to restore the seamless About handoff (then 242 frames / 500vh), plus the reworked hi-res 16:9 Pure still for the rest-point swap. Source clips + stills in `assets-src/`.
 3. ✅ Project scaffold: Next.js + Tailwind 4 + Lenis + GSAP ScrollTrigger; scroll-scrubbed hero working end-to-end (bar → bottle → liquid → About handoff); skeleton of all 8 sections with placeholder copy. Verified in a real browser.
 4. Deploy to Vercel (preview URL).
 5. Moodboard/style pass with the owner: lock wordmark, fonts, textures; replace placeholder copy and imagery block by block.
