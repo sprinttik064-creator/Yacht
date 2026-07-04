@@ -129,7 +129,7 @@ export default function HeroScrub() {
       <section className="relative h-screen">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/img/bottle-original.webp"
+          src="/img/bottle-pure.webp"
           alt="NIU botanical tonic bottle on a bar counter"
           className="absolute inset-0 h-full w-full object-cover"
         />

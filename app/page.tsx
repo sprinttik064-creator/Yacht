@@ -8,36 +8,28 @@ const FLAVORS = [
     cap: "ivory",
     note: "The clean base. Coconut water, electrolytes, nothing to hide.",
     serve: "NIU Pure · cracked ice · nothing else",
-    image: "/img/bottle-pure.webp",
-    imageNote: null,
-  },
+    image: "/img/bottle-pure.webp",  },
   {
     name: "Lime",
     color: "var(--color-flavor-lime)",
     cap: "green",
     note: "Cuts through the dark like a squeeze of lime over ice.",
     serve: "NIU Lime · crushed ice · lime wedge",
-    image: null,
-    imageNote: null,
-  },
+    image: "/img/bottle-lime.webp",  },
   {
     name: "Piña",
     color: "var(--color-flavor-pina)",
     cap: "golden",
     note: "Pineapple and coconut — the island side of the night.",
     serve: "NIU Piña · crushed ice · pineapple slice",
-    image: null,
-    imageNote: null,
-  },
+    image: "/img/bottle-pina.webp",  },
   {
     name: "Ginger Yuzu",
     color: "var(--color-flavor-gingeryuzu)",
     cap: "blue",
     note: "Heat and citrus. Candidate for the lightly sparkling edition.",
     serve: "NIU Ginger Yuzu · highball ice · yuzu zest",
-    image: null,
-    imageNote: null,
-  },
+    image: "/img/bottle-gingeryuzu.webp",  },
 ] as const;
 
 const MENU = [
@@ -241,28 +233,12 @@ function Flavors() {
             {/* bottle visual */}
             <div className="w-full max-w-sm flex-1 md:max-w-md">
               <Reveal delay={150}>
-                {f.image ? (
-                  <figure>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={f.image}
-                      alt={`NIU ${f.name} bottle`}
-                      className="w-full rounded-lg object-cover"
-                    />
-                    {f.imageNote && (
-                      <figcaption className="mt-3 text-xs text-cream/35 italic">
-                        {f.imageNote}
-                      </figcaption>
-                    )}
-                  </figure>
-                ) : (
-                  <div
-                    className="flex aspect-[3/4] w-full items-center justify-center rounded-lg border border-dashed p-8 text-center text-sm text-cream/40"
-                    style={{ borderColor: `color-mix(in srgb, ${f.color} 35%, transparent)` }}
-                  >
-                    Bottle render coming — Midjourney prompt ready in the master prompt
-                  </div>
-                )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={f.image}
+                  alt={`NIU ${f.name} bottle`}
+                  className="w-full rounded-lg object-cover"
+                />
               </Reveal>
             </div>
           </div>
@@ -275,7 +251,10 @@ function Flavors() {
 function Gallery() {
   const shots = [
     { src: "/img/packshot.webp", alt: "The NIU lineup on the bar" },
-    { src: "/img/bottle-original.webp", alt: "NIU Original close-up" },
+    { src: "/img/bottle-pure.webp", alt: "NIU Pure close-up" },
+    { src: "/img/bottle-lime.webp", alt: "NIU Lime under the green light" },
+    { src: "/img/bottle-pina.webp", alt: "NIU Piña on the backbar" },
+    { src: "/img/bottle-gingeryuzu.webp", alt: "NIU Ginger Yuzu in the blue hour" },
     { src: "/img/liquid-wall.webp", alt: "Inside the pour" },
   ];
   return (
@@ -362,9 +341,9 @@ function Lookbook() {
           <Reveal>
             <figure>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/img/bottle-original.webp" alt="NIU Original under the red neon" className="w-full rounded-lg" />
+              <img src="/img/bottle-pina.webp" alt="NIU Piña under the bar light" className="w-full rounded-lg" />
               <figcaption className="mt-4 text-sm text-cream/50 italic">
-                Original, under the red neon. — editorial captions are placeholders
+                Piña, under the bar light. — editorial captions are placeholders
               </figcaption>
             </figure>
           </Reveal>

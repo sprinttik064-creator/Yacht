@@ -161,7 +161,7 @@ Content note: owner supplies copy and imagery block-by-block as we build; until 
 ## 9. Build order (each step reviewed before the next)
 
 1. ✅ This master prompt — agree on it.
-2. ✅ Both v2 hero videos received, approved and cut into `public/hero/` (242 frames, 500vh pin, seamless About handoff restored). Video 1: 1176×784, straight push-in to Pure. Video 2: 1280×720, dive with the liquid igniting inside the bottle — cut with a stitch-matched crop (1004×564 @ 170,48) so frame 122 aligns with frame 121 in bottle size/position and the watermark falls outside. packshot.webp = V1 first frame. Still wanted: hi-res 16:9 Pure still for the rest-point swap; Lime/Piña/Ginger Yuzu bottle renders. Source clips + stills in `assets-src/`.
+2. ✅ Both v2 hero videos received, approved and cut into `public/hero/` (242 frames, 500vh pin, seamless About handoff restored). Video 1: 1176×784, straight push-in to Pure. Video 2: 1280×720, dive with the liquid igniting inside the bottle — cut with a stitch-matched crop (1004×564 @ 170,48) so frame 122 aligns with frame 121 in bottle size/position and the watermark falls outside. packshot.webp = V1 first frame. All four flavor renders received and integrated (flavor blocks, gallery, lookbook); v1 render fully retired. Still wanted: hi-res 16:9 Pure still for the rest-point swap. Source clips + stills in `assets-src/`.
 3. ✅ Project scaffold: Next.js + Tailwind 4 + Lenis + GSAP ScrollTrigger; scroll-scrubbed hero working end-to-end (bar → bottle → liquid → About handoff); skeleton of all 8 sections with placeholder copy. Verified in a real browser.
 4. Deploy to Vercel (preview URL).
 5. Moodboard/style pass with the owner: lock wordmark, fonts, textures; replace placeholder copy and imagery block by block.
