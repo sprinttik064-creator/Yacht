@@ -158,5 +158,7 @@ Content note: owner supplies copy and imagery block-by-block as we build; until 
 
 **Open:**
 - [ ] Regenerate packshot + hero videos with v2 labels (COCONUT MIXER, new flavors) — or keep v1 visuals for the Flo pitch and re-shoot after his yes?
-- [ ] Pitch deck (≤10 slides) and competitive-scan slide — companion deliverables to this site (in progress).
+- [x] Competitive scan done → `COMPETITIVE_SCAN.md` (category open; Vita Coco = closing window; Bervera ≠ Berczy).
+- [x] Pitch deck built as `/deck` route — 10 snap-scroll slides in the site's art direction (gap → thesis → product → bottle → range → category → model → why Flo → close). Unlisted (noindex), shares the Vercel deploy.
+- [ ] Concept paper still not received — needed to refine naming options and model details on slides 07/10.
 - [ ] Name lock: NIU vs alternatives (COCO HUGEL wildcard) — affects wordmark step.
