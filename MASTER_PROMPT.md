@@ -139,11 +139,12 @@ Content note: owner supplies copy and imagery block-by-block as we build; until 
 ## 9. Build order (each step reviewed before the next)
 
 1. ✅ This master prompt — agree on it.
-2. Moodboard + visual direction page (colors, type, textures, references) → lock the art direction.
-3. Project scaffold on Next.js + smooth scroll + section skeleton, deployed to Vercel early (preview URL from day one).
-4. Hero with 3D centerpiece and first signature transition.
-5. Remaining sections one by one, owner drops in real content as it's ready.
-6. Brandbook & lookbook sections, polish pass (micro-interactions, loading sequence, SEO/OG images).
+2. ✅ Hero videos generated (Kling 3.0, 2×5 s / 121 frames each, approved) and cut into 242 WebP frames (`public/hero/`, 16:9 crop removes the watermark). Source clips + full-res stills in `assets-src/`.
+3. ✅ Project scaffold: Next.js + Tailwind 4 + Lenis + GSAP ScrollTrigger; scroll-scrubbed hero working end-to-end (bar → bottle → liquid → About handoff); skeleton of all 8 sections with placeholder copy. Verified in a real browser.
+4. Deploy to Vercel (preview URL).
+5. Moodboard/style pass with the owner: lock wordmark, fonts, textures; replace placeholder copy and imagery block by block.
+6. Signature micro-interactions (magnetic buttons, liquid hover, disco-glint particles), flavor liquid loops (Video 3), polish pass (loading sequence, SEO/OG images).
+- Note: Kling output is 1176×784 — if the plan allows HD/1080p export later, re-download and re-cut frames for sharper large screens (rest-point frames are already swapped for full-res stills).
 
 ## 10. Decisions log & open questions
 
