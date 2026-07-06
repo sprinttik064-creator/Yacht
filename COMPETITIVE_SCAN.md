@@ -84,3 +84,11 @@ Innocent 1 L chilled carton, Rebel Kitchen raw 750 ml. **Zero bar/club activity.
    Vita Coco legacy. **No DJ/nightlife-native brand exists — that's the NIU slot.**
 6. Avoid RTD/liqueur confusion in the deck: Vita Coco Spiked (5% ABV), CoCo Vodka,
    Toast Vodka, Coco López/Malibu (cream/liqueur). NIU is a 0.0% mixer.
+
+---
+
+## Addendum (Jul 2026): category-leader benchmark & the 0.75 L bar format
+
+- **Fever-Tree (LSE: FEVR):** FY2025 revenue £375.3m (brand £372.7m); market cap ~£900–930m (Jun 2026); 70+ countries; #1 mixer by value in UK on- AND off-trade (CGA); Molson Coors took 8.5% for £71m (Jan 2025) and runs US distribution. Formats: 200 ml glass (core), 500 ml, 150 ml cans — **no 750 ml**.
+- **Thomas Henry (Berlin, 2010):** last published revenue €34–35m (2020, up from €5m in 2014), ~80 employees, 50–60 countries, German on-trade premium-mixer leader; current revenue est. €40–50m [est.]. Formats: **0.2 L returnable glass + 0.75 L glass (expanded line)**, 0.75 L PET, 1.0 L PET; 750 ml glass leads its 2025 US launch.
+- **0.75 L precedent:** Schweppes Germany added a 0.75 L returnable glass gastronomy bottle in 2019. Three Cents: 200 ml only. Franklin & Sons and London Essence top out at 500 ml. → 0.75 L bar bottle = continental gastronomy convention (TH + Schweppes DE), differentiator vs UK-style players.

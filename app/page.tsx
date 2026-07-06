@@ -50,14 +50,23 @@ const NUTRITION_ROWS = [
   { k: "Alcohol", v: "0.0%" },
 ] as const;
 
-// Sugar per 100 ml, typical published values for the usual suspects on a
-// bottle-service table. NIU carries only the coconut's own sugar.
+// Sugar per 100 ml, typical published values for what actually gets poured
+// behind a bar. NIU carries only the coconut's own sugar.
 const SUGAR = [
+  { name: "Mango nectar", g: 13.0, niu: false },
   { name: "Cranberry mixer", g: 11.5, niu: false },
+  { name: "Monster", g: 11.2, niu: false },
   { name: "Red Bull", g: 11.0, niu: false },
   { name: "Coca-Cola", g: 10.6, niu: false },
+  { name: "Pineapple juice", g: 10.5, niu: false },
+  { name: "Apple juice", g: 10.4, niu: false },
   { name: "Orange juice", g: 9.6, niu: false },
-  { name: "Tonic water", g: 8.9, niu: false },
+  { name: "Classic lemonade", g: 9.5, niu: false },
+  { name: "Ginger beer", g: 9.2, niu: false },
+  { name: "Tonic water", g: 8.8, niu: false },
+  { name: "Ginger ale", g: 7.3, niu: false },
+  { name: "Isotonic sport drink", g: 6.0, niu: false },
+  { name: "Iced tea", g: 4.7, niu: false },
   { name: "NIU", g: 2.5, niu: true },
 ] as const;
 
@@ -68,6 +77,7 @@ export default function Home() {
       <About />
       <Nutrition />
       <SugarCompare />
+      <Benchmark />
       <Flavors />
       <Gallery />
       <Moodboard />
@@ -179,58 +189,162 @@ function Nutrition() {
   );
 }
 
-/* Sugar per 100 ml vs the usual bottle-service pours — one bar per drink,
-   NIU highlighted, values labeled directly. */
+/* Sugar per 100 ml vs what actually gets poured behind a bar — light section
+   for maximum contrast, one thin bar per drink, NIU highlighted, values
+   labeled directly. Amber #B06212 passes 3:1 on the cream surface. */
 function SugarCompare() {
   const max = Math.max(...SUGAR.map((d) => d.g));
   return (
-    <section className="bg-espresso-2">
+    <section className="bg-cream text-espresso">
       <div className="mx-auto max-w-3xl px-6 py-32">
         <Reveal>
-          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Sugar check</p>
+          <p className="mb-2 text-xs tracking-[0.5em] text-[#B06212] uppercase">Sugar check</p>
           <h2 className="font-display text-4xl leading-tight md:text-5xl">
             The rest of the table runs on syrup.
           </h2>
-          <p className="mt-6 max-w-xl text-lg text-cream/70">
+          <p className="mt-6 max-w-xl text-lg text-espresso/70">
             Sugar per 100 ml, typical values. NIU carries only what the coconut
             put there — no added sugar, and nothing to crash on at 4 a.m.
           </p>
         </Reveal>
         <Reveal delay={150}>
-          <div className="mt-14 space-y-5">
+          <div className="mt-14 space-y-3">
             {SUGAR.map((d) => (
-              <div key={d.name} className="flex items-center gap-4">
+              <div key={d.name} className="flex items-center gap-3 md:gap-4">
                 <span
-                  className={`w-36 shrink-0 text-sm tracking-wide uppercase md:w-44 ${
-                    d.niu ? "font-semibold text-amber" : "text-cream/55"
+                  className={`w-36 shrink-0 text-xs tracking-wide uppercase md:w-48 md:text-sm ${
+                    d.niu ? "font-bold text-[#B06212]" : "text-espresso/60"
                   }`}
                 >
                   {d.name}
                 </span>
-                <div className="h-5 flex-1">
+                <div className="h-3.5 flex-1">
                   <div
-                    className={`h-5 rounded-[4px] ${d.niu ? "bg-amber" : "bg-cream/15"}`}
+                    className={`h-3.5 rounded-[4px] ${d.niu ? "bg-[#B06212]" : "bg-espresso/12"}`}
                     style={{ width: `${(d.g / max) * 100}%`, minWidth: 10 }}
                   />
                 </div>
                 <span
-                  className={`w-14 shrink-0 text-right text-sm ${
-                    d.niu ? "font-semibold text-amber" : "text-cream/60"
+                  className={`w-12 shrink-0 text-right text-xs md:text-sm ${
+                    d.niu ? "font-bold text-[#B06212]" : "text-espresso/60"
                   }`}
                 >
-                  {d.g.toFixed(1)} g
+                  {d.g.toFixed(1)}
                 </span>
               </div>
             ))}
           </div>
         </Reveal>
         <Reveal delay={250}>
-          <p className="mt-12 text-sm text-cream/55">
-            That&apos;s ~4× less sugar than the cranberry pour — and while an energy
-            drink adds 32 mg of caffeine per 100 ml, NIU adds exactly none.
+          <p className="mt-12 text-sm text-espresso/70">
+            That&apos;s 2–5× less sugar than everything else on the tray — and while
+            an energy drink adds 32 mg of caffeine per 100 ml, NIU adds exactly none.
           </p>
-          <p className="mt-3 text-xs text-cream/35">
-            Typical published values per 100 ml; branded figures vary by market.
+          <p className="mt-3 text-xs text-espresso/45">
+            Grams of sugar per 100 ml, typical published values; branded figures vary by market.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* Category proof: how big the 200 ml playbook already got — and the 0.75 L
+   bar bottle as the continental gastronomy format (Thomas Henry, Schweppes DE). */
+const BENCHMARKS = [
+  {
+    name: "Fever-Tree",
+    origin: "London · est. 2004 · LSE-listed",
+    stats: [
+      ["£375m", "revenue FY2025"],
+      ["£900m", "market cap"],
+      ["70+", "countries"],
+    ],
+    note: "#1 mixer by value in UK on- and off-trade (CGA). Molson Coors bought 8.5% for £71m and took over US distribution in 2025. Formats: 200 ml glass, 500 ml, 150 ml cans.",
+  },
+  {
+    name: "Thomas Henry",
+    origin: "Berlin · est. 2010 · private",
+    stats: [
+      ["€40–50m", "revenue (est.)"],
+      ["~80", "people"],
+      ["50–60", "countries"],
+    ],
+    note: "Germany's on-trade premium-mixer leader, built “from gastronomy for gastronomy”. Runs on exactly our pair: 0.2 L serve + 0.75 L glass bar bottle — the 750 ml even leads its 2025 US launch.",
+  },
+] as const;
+
+function Benchmark() {
+  return (
+    <section className="bg-espresso">
+      <div className="mx-auto max-w-6xl px-6 py-32">
+        <Reveal>
+          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The benchmark</p>
+          <h2 className="font-display max-w-3xl text-4xl leading-tight md:text-5xl">
+            Mixers built on a 200 ml bottle got this big.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg text-cream/70">
+            The premium-mixer playbook is proven twice over — once from London,
+            once from Berlin. Nobody has run it with coconut water yet.
+          </p>
+        </Reveal>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          {BENCHMARKS.map((b, i) => (
+            <Reveal key={b.name} delay={i * 120}>
+              <div className="h-full rounded-lg border border-cream/10 bg-espresso-2 p-8">
+                <p className="font-display text-2xl">{b.name}</p>
+                <p className="mt-1 text-xs tracking-[0.25em] text-cream/45 uppercase">{b.origin}</p>
+                <div className="mt-6 grid grid-cols-3 gap-4">
+                  {b.stats.map(([n, l]) => (
+                    <div key={l}>
+                      <p className="font-display text-2xl text-amber md:text-3xl">{n}</p>
+                      <p className="mt-1 text-[11px] tracking-wide text-cream/50 uppercase">{l}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-6 text-sm leading-relaxed text-cream/65">{b.note}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* the 0.75 L bar bottle */}
+        <div className="mt-20 flex flex-col items-center gap-10 md:flex-row md:gap-16">
+          <div className="flex-1">
+            <Reveal>
+              <p className="mb-4 text-xs tracking-[0.4em] text-amber uppercase">Range extension</p>
+              <h3 className="font-display text-3xl leading-tight md:text-4xl">
+                The 0.75 L bar bottle.
+              </h3>
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-cream/75">
+                Two formats, one system: the 200 ml serve for the table — and a
+                0.75 L bottle for the speed rail, sharing setups and banquets.
+                It’s the continental gastronomy convention Thomas Henry and
+                Schweppes Germany run on — while the UK players stop at 500 ml,
+                which makes the big bottle a differentiator, not a gamble.
+              </p>
+              <p className="mt-6 text-sm text-cream/45">
+                Same amber glass, same label system, all four flavors.
+              </p>
+            </Reveal>
+          </div>
+          <div className="w-full max-w-xl flex-1">
+            <Reveal delay={150}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={asset("/img/bottle-075-lineup.webp")}
+                alt="NIU 0.75 L bar bottles, all four flavors"
+                className="w-full rounded-lg object-cover"
+              />
+            </Reveal>
+          </div>
+        </div>
+        <Reveal delay={200}>
+          <p className="mt-10 text-xs text-cream/35">
+            Sources: Fever-Tree FY25 results · CGA rankings · Molson Coors deal releases ·
+            Thomas Henry company filings &amp; trade press. Thomas Henry revenue is an estimate
+            extrapolated from the last published figure (€35m, 2020).
           </p>
         </Reveal>
       </div>
@@ -329,6 +443,7 @@ function Gallery() {
     { src: "/img/bottle-lime.webp", alt: "NIU Lime under the green light" },
     { src: "/img/bottle-pina.webp", alt: "NIU Piña on the backbar" },
     { src: "/img/bottle-gingeryuzu.webp", alt: "NIU Ginger Yuzu in the blue hour" },
+    { src: "/img/bottle-075-pure.webp", alt: "NIU Pure 0.75 L bar bottle" },
     { src: "/img/liquid-wall.webp", alt: "Inside the pour" },
   ];
   return (
