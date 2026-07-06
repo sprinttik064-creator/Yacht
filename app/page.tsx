@@ -85,6 +85,7 @@ export default function Home() {
       <SugarCompare />
       <Benchmark />
       <Flavors />
+      <HydrationEdge />
       <ScienceTeaser />
       <Gallery />
       <Moodboard />
@@ -452,6 +453,88 @@ function Flavors() {
         </section>
       ))}
     </>
+  );
+}
+
+/* Compact hydration-vs-water block: what each drink actually puts back.
+   Composition facts only — no invented retention numbers. */
+const EDGE_ROWS = [
+  { k: "Fluid", water: "yes", niu: "yes", pct: 100 },
+  { k: "Sodium", water: "0", niu: "120 mg", pct: 100 },
+  { k: "Potassium", water: "0", niu: "~500 mg", pct: 82 },
+  { k: "Magnesium", water: "0", niu: "56 mg", pct: 46 },
+] as const;
+
+function HydrationEdge() {
+  return (
+    <section className="bg-espresso-2">
+      <div className="mx-auto grid max-w-5xl items-center gap-12 px-6 py-28 md:grid-cols-2 md:gap-16">
+        <div>
+          <Reveal>
+            <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Hydration 101</p>
+            <h2 className="font-display text-4xl leading-tight md:text-5xl">
+              Rehydrates better than water.
+            </h2>
+          </Reveal>
+          <Reveal delay={120}>
+            <p className="mt-6 text-lg leading-relaxed text-cream/70">
+              Plain water refills the tank — but not the salts a sweaty night
+              takes out. Worse, by diluting the blood it switches thirst off
+              and urine on before you&apos;ve actually caught up. Rehydration
+              sticks when fluid arrives with sodium and potassium; that&apos;s
+              what the beverage-hydration research keeps finding, and it&apos;s
+              what NIU is made of.
+            </p>
+            <p className="mt-5 text-xs leading-relaxed text-cream/35">
+              Maughan et al., American Journal of Clinical Nutrition, 2016
+              (beverage hydration index — sodium content drives fluid
+              retention) · ACSM fluid-replacement guidance.
+            </p>
+          </Reveal>
+        </div>
+        <Reveal delay={180}>
+          <div className="rounded-lg border border-cream/10 bg-espresso p-7 md:p-8">
+            <div className="mb-5 flex items-baseline justify-between text-[11px] tracking-[0.2em] uppercase">
+              <span className="text-cream/40">Per 200 ml, what goes back in</span>
+            </div>
+            <div className="space-y-6">
+              {EDGE_ROWS.map((r) => (
+                <div key={r.k}>
+                  <p className="text-sm text-cream/85">{r.k}</p>
+                  <div className="mt-2 space-y-1.5">
+                    <div className="flex items-center gap-3">
+                      <span className="w-12 shrink-0 text-[11px] tracking-wide text-cream/40 uppercase">Water</span>
+                      <div className="h-3 flex-1">
+                        {r.k === "Fluid" ? (
+                          <div className="h-3 w-full rounded-[4px] bg-cream/25" />
+                        ) : (
+                          <div className="h-3 w-[3px] rounded-[2px] bg-cream/25" />
+                        )}
+                      </div>
+                      <span className="w-16 shrink-0 text-right text-xs text-cream/45">{r.water}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="w-12 shrink-0 text-[11px] tracking-wide text-amber uppercase">NIU</span>
+                      <div className="h-3 flex-1">
+                        <div
+                          className="h-3 rounded-[4px] bg-amber"
+                          style={{ width: `${r.pct}%` }}
+                        />
+                      </div>
+                      <span className="w-16 shrink-0 text-right text-xs font-semibold text-cream">{r.niu}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-[10px] leading-relaxed text-cream/30">
+              Bars illustrate composition per bottle, not clinical retention
+              rates. Recipe values pending lab analysis.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
