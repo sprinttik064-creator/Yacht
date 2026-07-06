@@ -17,6 +17,57 @@ const NIU_FIT = [
   { k: "Format", v: "200 ml serve — natural pacing against over-drinking" },
 ] as const;
 
+const SUBSTANCES = [
+  {
+    name: "Alcohol",
+    tag: "hydration relevant",
+    relevant: true,
+    body: "Ethanol suppresses vasopressin, so the kidneys shed more fluid than each drink brings in — and sodium, potassium and magnesium leave with it. A large share of the classic hangover is plain dehydration plus electrolyte imbalance.",
+    angle: "The textbook case for an electrolyte mixer: replace the water and the salts while the night is still running, not the morning after.",
+    src: "Hobson & Maughan · Alcohol and Alcoholism, 2010",
+  },
+  {
+    name: "MDMA · ecstasy",
+    tag: "hydration relevant — with a catch",
+    relevant: true,
+    body: "Impaired thermoregulation plus vasopressin release: the body overheats through hours of dancing while refusing to let water go. Litres of plain water then dilute blood sodium — the hyponatremia mechanism detailed above.",
+    angle: "The one case with direct guidance: ~500 ml of fluid per hour, electrolytes preferred over plain water — sodium is the whole point.",
+    src: "Henry 1998 · Hartung 2002 · sections 01–03",
+  },
+  {
+    name: "Amphetamines · speed",
+    tag: "partially relevant",
+    relevant: true,
+    body: "Hours of physical activity with thirst and appetite switched off, raised temperature and jaw tension; sessions run long and losses accumulate quietly.",
+    angle: "Same sweat arithmetic as any marathon night — electrolyte fluids over plain water. No MDMA-style water-retention quirk, so the risk profile is simpler.",
+    src: "Festival-medicine hydration guidance",
+  },
+  {
+    name: "Cocaine",
+    tag: "hydration won't fix this",
+    relevant: false,
+    body: "Vasoconstriction, racing heart, blood-pressure spikes, arrhythmia and infarction risk — and taken with alcohol the liver produces cocaethylene, more cardiotoxic than either substance alone.",
+    angle: "Honestly: the danger is cardiac, and no drink mitigates it. The only relevant lines — zero caffeine adds no third stimulant on top, and the alcohol running alongside still costs water and salts.",
+    src: "Pennings et al. · Addiction, 2002",
+  },
+  {
+    name: "Ketamine",
+    tag: "hydration won't fix this",
+    relevant: false,
+    body: "Dissociation and lost coordination (falls and injuries), nausea; with regular use, documented damage to the bladder — ketamine-associated ulcerative cystitis.",
+    angle: "No hydration story to tell. At most: a non-alcoholic glass in hand. We won't pretend otherwise.",
+    src: "Shahani et al. · Urology, 2007",
+  },
+  {
+    name: "GHB",
+    tag: "emergency risk — not a hydration case",
+    relevant: false,
+    body: "A depressant with a narrow dose window; combined with alcohol it can suppress breathing outright. Overdose looks like deep sleep and is not one.",
+    angle: "Nothing a drink can do. Someone unresponsive on GHB needs medics immediately — that is the entire guidance.",
+    src: "Mason & Kerns · Academic Emergency Medicine, 2002",
+  },
+] as const;
+
 const SOURCES = [
   "Henry JA, Jeffreys KJ, Dawling S. Toxicity and deaths from 3,4-methylenedioxymethamphetamine (“ecstasy”). The Lancet, 1992.",
   "Henry JA et al. Low-dose MDMA (“ecstasy”) induces vasopressin secretion. The Lancet, 1998.",
@@ -27,6 +78,10 @@ const SOURCES = [
   "CDC. Illness and deaths among persons attending an electronic dance-music festival — New York City, 2013. MMWR, 2014.",
   "DanceSafe — heatstroke & hydration harm-reduction guidance (dancesafe.org).",
   "London Drug Policy Forum — “Dance Till Dawn Safely” safer-clubbing guidance (~500 ml fluid per hour of dancing).",
+  "Hobson RM, Maughan RJ. Hydration status and the diuretic action of a small dose of alcohol. Alcohol and Alcoholism, 2010.",
+  "Pennings EJ, Leccese AP, Wolff FA. Effects of concurrent use of alcohol and cocaine. Addiction, 2002.",
+  "Shahani R et al. Ketamine-associated ulcerative cystitis: a new clinical entity. Urology, 2007.",
+  "Mason PE, Kerns WP. Gamma hydroxybutyric acid (GHB) intoxication. Academic Emergency Medicine, 2002.",
 ] as const;
 
 function Kicker({ children }: { children: React.ReactNode }) {
@@ -135,9 +190,57 @@ export default function Science() {
           </p>
         </section>
 
-        {/* 04 where NIU fits */}
+        {/* 04 substance by substance */}
         <section className="mt-16">
-          <Kicker>04 · Where NIU fits</Kicker>
+          <Kicker>04 · Substance by substance</Kicker>
+          <h2 className="font-display text-3xl md:text-4xl">
+            What hydration can — and cannot — do.
+          </h2>
+          <p className="mt-6 leading-relaxed text-cream/75">
+            Different substances break the body differently, and an electrolyte
+            drink is not a remedy for most of it. Here is the honest map — the
+            cases where hydration science genuinely applies, and the cases where
+            pretending it helps would be dangerous.
+          </p>
+          <div className="mt-10 space-y-5">
+            {SUBSTANCES.map((s) => (
+              <div key={s.name} className="rounded-lg border border-cream/10 bg-espresso-2 p-6 md:p-7">
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="font-display text-xl">{s.name}</p>
+                  <span
+                    className={`rounded-full border px-3 py-1 text-[10px] tracking-[0.15em] uppercase ${
+                      s.relevant
+                        ? "border-amber/60 text-amber"
+                        : "border-cream/25 text-cream/45"
+                    }`}
+                  >
+                    {s.tag}
+                  </span>
+                </div>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] text-cream/40 uppercase">On the body</p>
+                    <p className="mt-2 text-sm leading-relaxed text-cream/70">{s.body}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] text-cream/40 uppercase">The hydration angle</p>
+                    <p className="mt-2 text-sm leading-relaxed text-cream/70">{s.angle}</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-[11px] tracking-[0.12em] text-amber/70 uppercase">{s.src}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 rounded-lg border border-neon/30 bg-neon/5 px-5 py-4 text-sm leading-relaxed text-cream/70">
+            The line that matters most: overheating, confusion, collapse or
+            unresponsiveness is a medical emergency. Fluids are not the answer
+            at that point — medics are. Every venue&apos;s staff should know it.
+          </p>
+        </section>
+
+        {/* 05 where NIU fits */}
+        <section className="mt-16">
+          <Kicker>05 · Where NIU fits</Kicker>
           <h2 className="font-display text-3xl md:text-4xl">
             The recipe sits where the guidance points.
           </h2>
