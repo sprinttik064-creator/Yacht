@@ -33,14 +33,32 @@ const FLAVORS = [
     image: "/img/bottle-gingeryuzu.webp",  },
 ] as const;
 
-const MENU = [
-  { item: "Base", detail: "pure coconut water, no added sugar" },
-  { item: "Electrolytes", detail: "magnesium + dosed sodium, added" },
-  { item: "Potassium", detail: "~500 mg, naturally occurring" },
-  { item: "Caffeine & taurine", detail: "none — the anti-energy-drink" },
-  { item: "Bottle", detail: "200 ml amber glass, aluminum cap" },
-  { item: "Keeps", detail: "12 months, no fridge required (UHT)" },
-  { item: "Best served", detail: "over ice, after midnight" },
+// Per 200 ml bottle. Approximate typical values — pending lab analysis.
+const NUTRITION_HERO = [
+  { n: "38", unit: "kcal", label: "per bottle" },
+  { n: "0", unit: "g", label: "added sugar" },
+  { n: "0", unit: "mg", label: "caffeine · taurine" },
+  { n: "500", unit: "mg", label: "potassium · 25% NRV" },
+] as const;
+
+const NUTRITION_ROWS = [
+  { k: "Natural sugars (from the coconut)", v: "5.0 g" },
+  { k: "Carbohydrates", v: "7.4 g" },
+  { k: "Magnesium — added", v: "56 mg · 15% NRV" },
+  { k: "Sodium — dosed", v: "120 mg" },
+  { k: "Fat · protein", v: "0 g · <0.5 g" },
+  { k: "Alcohol", v: "0.0%" },
+] as const;
+
+// Sugar per 100 ml, typical published values for the usual suspects on a
+// bottle-service table. NIU carries only the coconut's own sugar.
+const SUGAR = [
+  { name: "Cranberry mixer", g: 11.5, niu: false },
+  { name: "Red Bull", g: 11.0, niu: false },
+  { name: "Coca-Cola", g: 10.6, niu: false },
+  { name: "Orange juice", g: 9.6, niu: false },
+  { name: "Tonic water", g: 8.9, niu: false },
+  { name: "NIU", g: 2.5, niu: true },
 ] as const;
 
 export default function Home() {
@@ -48,8 +66,8 @@ export default function Home() {
     <main>
       <HeroScrub />
       <About />
-      <Category />
-      <Menu />
+      <Nutrition />
+      <SugarCompare />
       <Flavors />
       <Gallery />
       <Moodboard />
@@ -93,38 +111,67 @@ function About() {
   );
 }
 
-/* The thesis: the bottle-service table has an empty fourth slot. */
-function Category() {
-  const slots = ["Cranberry", "Orange", "Soda"];
+/* Nutrition facts styled as the bottle's cream label — the packaging is the chart. */
+function Nutrition() {
   return (
     <section className="bg-espresso">
-      <div className="mx-auto max-w-4xl px-6 py-32 text-center">
+      <div className="mx-auto max-w-4xl px-6 py-32">
         <Reveal>
-          <p className="mb-6 text-xs tracking-[0.5em] text-amber uppercase">The gap</p>
-          <h2 className="font-display text-3xl leading-tight md:text-5xl">
-            Every table in every club pours the same three mixers.
+          <p className="mb-2 text-center text-xs tracking-[0.5em] text-amber uppercase">
+            What&apos;s inside
+          </p>
+          <h2 className="font-display mb-16 text-center text-4xl md:text-5xl">
+            Nothing to hide on the label
           </h2>
         </Reveal>
-        <Reveal delay={150}>
-          <div className="mt-14 flex flex-wrap items-center justify-center gap-4">
-            {slots.map((s) => (
-              <span
-                key={s}
-                className="rounded-full border border-cream/15 px-6 py-3 text-sm tracking-widest text-cream/50 uppercase"
-              >
-                {s}
-              </span>
-            ))}
-            <span className="rounded-full border border-amber bg-amber/10 px-6 py-3 text-sm tracking-widest text-amber uppercase">
-              NIU
-            </span>
+        <Reveal delay={120}>
+          {/* the cream label card */}
+          <div className="mx-auto max-w-2xl rounded-lg bg-cream px-8 py-10 text-espresso shadow-2xl md:px-12">
+            <p className="text-center text-[11px] font-semibold tracking-[0.45em] uppercase">
+              Coconut mixer
+            </p>
+            <p className="font-display mt-2 text-center text-5xl tracking-tight">NIU</p>
+            <p className="mt-1 text-center text-[11px] tracking-[0.3em] text-espresso/60 uppercase">
+              Nutrition · per 200 ml serve
+            </p>
+            <div className="mt-6 border-t-4 border-espresso" />
+
+            {/* hero numbers */}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 py-8 md:grid-cols-4">
+              {NUTRITION_HERO.map((h) => (
+                <div key={h.label} className="text-center">
+                  <p className="font-display text-4xl leading-none">
+                    {h.n}
+                    <span className="ml-1 align-baseline text-base font-semibold">{h.unit}</span>
+                  </p>
+                  <p className="mt-2 text-[11px] tracking-[0.18em] text-espresso/60 uppercase">
+                    {h.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-espresso/25" />
+
+            {/* detail rows */}
+            <div className="space-y-3 py-6">
+              {NUTRITION_ROWS.map((r) => (
+                <div key={r.k} className="flex items-end text-sm">
+                  <span className="shrink-0">{r.k}</span>
+                  <span className="mx-3 mb-1 flex-1 border-b border-dotted border-espresso/30" />
+                  <span className="text-right font-semibold whitespace-nowrap">{r.v}</span>
+                </div>
+              ))}
+            </div>
+            <div className="border-t-4 border-espresso pt-4">
+              <p className="text-center text-[10px] tracking-[0.2em] text-espresso/50 uppercase">
+                Natural ingredients · UHT · keeps 12 months, no fridge
+              </p>
+            </div>
           </div>
         </Reveal>
-        <Reveal delay={250}>
-          <p className="mx-auto mt-12 max-w-xl text-lg leading-relaxed text-cream/75">
-            No alcohol. No caffeine. No conflicts. NIU opens the fourth slot on
-            the bottle-service table — and owns a category nobody else has
-            claimed.
+        <Reveal delay={220}>
+          <p className="mt-8 text-center text-xs text-cream/40">
+            Approximate typical values — final figures follow lab analysis of the production recipe.
           </p>
         </Reveal>
       </div>
@@ -132,32 +179,58 @@ function Category() {
   );
 }
 
-function Menu() {
+/* Sugar per 100 ml vs the usual bottle-service pours — one bar per drink,
+   NIU highlighted, values labeled directly. */
+function SugarCompare() {
+  const max = Math.max(...SUGAR.map((d) => d.g));
   return (
-    <section className="relative bg-espresso">
-      <div className="mx-auto max-w-2xl px-6 py-32">
+    <section className="bg-espresso-2">
+      <div className="mx-auto max-w-3xl px-6 py-32">
         <Reveal>
-          <p className="mb-2 text-center text-xs tracking-[0.5em] text-amber uppercase">
-            Characteristics
-          </p>
-          <h2 className="font-display mb-16 text-center text-4xl md:text-5xl">
-            The Menu
+          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Sugar check</p>
+          <h2 className="font-display text-4xl leading-tight md:text-5xl">
+            The rest of the table runs on syrup.
           </h2>
+          <p className="mt-6 max-w-xl text-lg text-cream/70">
+            Sugar per 100 ml, typical values. NIU carries only what the coconut
+            put there — no added sugar, and nothing to crash on at 4 a.m.
+          </p>
         </Reveal>
-        <div className="space-y-6">
-          {MENU.map((row, i) => (
-            <Reveal key={row.item} delay={i * 80}>
-              <div className="flex items-end text-base md:text-lg">
-                <span className="shrink-0 text-cream">{row.item}</span>
-                <span className="menu-leader" />
-                <span className="max-w-[55%] text-right text-cream/60">{row.detail}</span>
+        <Reveal delay={150}>
+          <div className="mt-14 space-y-5">
+            {SUGAR.map((d) => (
+              <div key={d.name} className="flex items-center gap-4">
+                <span
+                  className={`w-36 shrink-0 text-sm tracking-wide uppercase md:w-44 ${
+                    d.niu ? "font-semibold text-amber" : "text-cream/55"
+                  }`}
+                >
+                  {d.name}
+                </span>
+                <div className="h-5 flex-1">
+                  <div
+                    className={`h-5 rounded-[4px] ${d.niu ? "bg-amber" : "bg-cream/15"}`}
+                    style={{ width: `${(d.g / max) * 100}%`, minWidth: 10 }}
+                  />
+                </div>
+                <span
+                  className={`w-14 shrink-0 text-right text-sm ${
+                    d.niu ? "font-semibold text-amber" : "text-cream/60"
+                  }`}
+                >
+                  {d.g.toFixed(1)} g
+                </span>
               </div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={300}>
-          <p className="mt-16 text-center text-xs tracking-[0.3em] text-cream/40 uppercase">
-            Nutrition facts to follow — placeholder
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={250}>
+          <p className="mt-12 text-sm text-cream/55">
+            That&apos;s ~4× less sugar than the cranberry pour — and while an energy
+            drink adds 32 mg of caffeine per 100 ml, NIU adds exactly none.
+          </p>
+          <p className="mt-3 text-xs text-cream/35">
+            Typical published values per 100 ml; branded figures vary by market.
           </p>
         </Reveal>
       </div>
