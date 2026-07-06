@@ -8,11 +8,11 @@ const FLAVORS = [
   {
     name: "Pure",
     color: "var(--color-flavor-pure)",
-    cap: "ivory",
+    cap: "aluminum",
     note: "The clean base. Coconut water, electrolytes, nothing to hide.",
     serve: "NIU Pure · cracked ice · nothing else",
     cocktail: { name: "White Palm", spec: "50 ml silver tequila · 100 ml NIU Pure · squeeze of lime · over rocks" },
-    image: "/img/bottle-pure.webp",  },
+    image: "/img/bottle-pure-alu.webp",  },
   {
     name: "Lime",
     color: "var(--color-flavor-lime)",
@@ -20,7 +20,7 @@ const FLAVORS = [
     note: "Cuts through the dark like a squeeze of lime over ice.",
     serve: "NIU Lime · crushed ice · lime wedge",
     cocktail: { name: "Midnight Gimlet", spec: "50 ml dry gin · 100 ml NIU Lime · crushed ice · lime wedge" },
-    image: "/img/bottle-lime.webp",  },
+    image: "/img/bottle-lime-alu.webp",  },
   {
     name: "Piña",
     color: "var(--color-flavor-pina)",
@@ -28,7 +28,7 @@ const FLAVORS = [
     note: "Pineapple and coconut — the island side of the night.",
     serve: "NIU Piña · crushed ice · pineapple slice",
     cocktail: { name: "Piña Noir", spec: "50 ml white rum · 100 ml NIU Piña · pineapple slice — the colada, minus the cream" },
-    image: "/img/bottle-pina.webp",  },
+    image: "/img/bottle-pina-alu.webp",  },
   {
     name: "Ginger Yuzu",
     color: "var(--color-flavor-gingeryuzu)",
@@ -36,7 +36,7 @@ const FLAVORS = [
     note: "Heat and citrus. Candidate for the lightly sparkling edition.",
     serve: "NIU Ginger Yuzu · highball ice · yuzu zest",
     cocktail: { name: "Tokyo Highball", spec: "45 ml Japanese whisky · 110 ml NIU Ginger Yuzu · tall glass · citrus zest" },
-    image: "/img/bottle-gingeryuzu.webp",  },
+    image: "/img/bottle-gingeryuzu-alu.webp",  },
 ] as const;
 
 // Per 200 ml bottle. Approximate typical values — pending lab analysis.
