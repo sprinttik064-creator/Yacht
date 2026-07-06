@@ -441,12 +441,15 @@ function Flavors() {
             {/* bottle visual */}
             <div className="w-full max-w-sm flex-1 md:max-w-md">
               <Reveal delay={150}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={asset(f.image)}
-                  alt={`NIU ${f.name} bottle`}
-                  className="w-full rounded-lg object-cover"
-                />
+                {/* portrait crop + slight zoom so the bottle dominates the frame */}
+                <div className="overflow-hidden rounded-lg">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(f.image)}
+                    alt={`NIU ${f.name} bottle`}
+                    className="aspect-[4/5] w-full scale-[1.08] object-cover"
+                  />
+                </div>
               </Reveal>
             </div>
           </div>
