@@ -355,9 +355,15 @@ function Benchmark() {
 function Flavors() {
   return (
     <>
-      {/* Lineup intro */}
-      <section className="bg-espresso-2">
-        <div className="mx-auto max-w-6xl px-6 pt-32 pb-8">
+      {/* Lineup intro — carries the same bar backdrop as the flavor blocks,
+          so the scene starts at the headline instead of a flat black gap */}
+      <section className="relative overflow-hidden bg-espresso-2">
+        <div
+          className="absolute inset-0 bg-cover bg-center md:bg-fixed"
+          style={{ backgroundImage: `url(${asset("/img/empty-bar.webp")})` }}
+        />
+        <div className="absolute inset-0 bg-espresso-2/45" />
+        <div className="relative mx-auto max-w-6xl px-6 pt-32 pb-8">
           <Reveal>
             <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The lineup</p>
             <h2 className="font-display mb-4 text-4xl md:text-5xl">Four ways after dark</h2>
