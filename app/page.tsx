@@ -354,51 +354,85 @@ function Benchmark() {
 
 function Flavors() {
   return (
-    <section className="bg-espresso-2">
-      <div className="mx-auto max-w-6xl px-6 py-32">
-        <Reveal>
-          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The lineup</p>
-          <h2 className="font-display mb-4 text-4xl md:text-5xl">Four ways after dark</h2>
-          <p className="max-w-xl text-cream/60">
-            One bottle, four moods. Cap color is the only thing that changes —
-            the rest is the same clean base.
-          </p>
-        </Reveal>
-        <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {FLAVORS.map((f, i) => (
-            <Reveal key={f.name} delay={i * 100}>
-              <div className="group">
-                <div className="overflow-hidden rounded-lg">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={asset(f.image)}
-                    alt={`NIU ${f.name} bottle`}
-                    className="aspect-[3/4] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="mt-5 flex items-center gap-2.5">
-                  <span
-                    className="h-2 w-2 shrink-0 rounded-full"
-                    style={{ background: f.color }}
-                  />
-                  <p className="font-display text-xl text-cream">{f.name}</p>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-cream/55">{f.note}</p>
-                <p className="mt-3 text-[11px] tracking-[0.15em] text-cream/40 uppercase">
-                  {f.serve}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+    <>
+      {/* Lineup intro */}
+      <section className="bg-espresso-2">
+        <div className="mx-auto max-w-6xl px-6 pt-32 pb-8">
+          <Reveal>
+            <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The lineup</p>
+            <h2 className="font-display mb-4 text-4xl md:text-5xl">Four ways after dark</h2>
+            <p className="max-w-xl text-cream/60">
+              One bottle, four moods. Cap color is the only thing that changes —
+              the rest is the same clean base.
+            </p>
+          </Reveal>
         </div>
-        <Reveal delay={250}>
-          <p className="mt-12 text-sm text-cream/45">
-            200 ml serve · 0.75 L bar bottle · Ginger Yuzu is the candidate for a
-            lightly sparkling edition.
-          </p>
-        </Reveal>
-      </div>
-    </section>
+      </section>
+
+      {/* One full block per bottle */}
+      {FLAVORS.map((f, i) => (
+        <section key={f.name} className="relative overflow-hidden bg-espresso-2">
+          {/* shared empty-bar backdrop: one venue for all four flavors, fixed on
+              desktop so the room stays put while the flavors change the light */}
+          <div
+            className="absolute inset-0 bg-cover bg-center md:bg-fixed"
+            style={{ backgroundImage: `url(${asset("/img/empty-bar.webp")})` }}
+          />
+          <div className="absolute inset-0 bg-espresso-2/45" />
+          {/* flavor-tinted ambient glow */}
+          <div
+            className="pointer-events-none absolute top-1/2 h-[70vh] w-[70vh] -translate-y-1/2 rounded-full opacity-[0.13] blur-[110px]"
+            style={{
+              background: f.color,
+              [i % 2 === 0 ? "right" : "left"]: "-15vh",
+            } as React.CSSProperties}
+          />
+          <div
+            className={`mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 py-16 md:min-h-screen md:flex-row md:gap-20 md:py-24 ${
+              i % 2 === 1 ? "md:flex-row-reverse" : ""
+            }`}
+          >
+            {/* copy */}
+            <div className="flex-1">
+              <Reveal>
+                <p className="text-xs tracking-[0.4em] text-cream/50 uppercase">
+                  NIU · {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3
+                  className="font-display mt-4 text-5xl md:text-7xl"
+                  style={{ color: f.color }}
+                >
+                  {f.name}
+                </h3>
+              </Reveal>
+              <Reveal delay={120}>
+                <p className="mt-8 max-w-md text-lg leading-relaxed text-cream/80">{f.note}</p>
+              </Reveal>
+              <Reveal delay={200}>
+                <div className="mt-10 max-w-md border-t border-cream/10 pt-6">
+                  <p className="text-xs tracking-[0.3em] text-cream/40 uppercase">Serve it</p>
+                  <p className="mt-2 text-cream/70">{f.serve}</p>
+                </div>
+                <p className="mt-8 text-xs text-cream/40">
+                  200 ml · {f.cap} cap · coconut mixer
+                </p>
+              </Reveal>
+            </div>
+            {/* bottle visual */}
+            <div className="w-full max-w-sm flex-1 md:max-w-md">
+              <Reveal delay={150}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={asset(f.image)}
+                  alt={`NIU ${f.name} bottle`}
+                  className="w-full rounded-lg object-cover"
+                />
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      ))}
+    </>
   );
 }
 
