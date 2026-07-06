@@ -79,6 +79,7 @@ export default function Home() {
       <SugarCompare />
       <Benchmark />
       <Flavors />
+      <NightHydration />
       <Gallery />
       <Moodboard />
       <Lookbook />
@@ -439,6 +440,91 @@ function Flavors() {
         </section>
       ))}
     </>
+  );
+}
+
+/* Dancefloor hydration: plain water vs NIU, framed on event-medicine and
+   club harm-reduction guidance. Publishable wording by design. */
+const HYDRATION_ROWS = [
+  {
+    k: "Sodium sweated out over hours of dancing",
+    water: "not replaced — every extra glass dilutes it further",
+    niu: "120 mg dosed back per bottle",
+  },
+  {
+    k: "Potassium (muscles, rhythm of the heart)",
+    water: "none",
+    niu: "~500 mg natural, 25% NRV",
+  },
+  {
+    k: "Magnesium (cramps, recovery)",
+    water: "none",
+    niu: "56 mg added",
+  },
+  {
+    k: "Overhydration risk (hyponatremia — documented on dancefloors)",
+    water: "grows with every plain litre",
+    niu: "electrolytes hold the balance",
+  },
+  {
+    k: "Stimulant load on a racing heart",
+    water: "zero",
+    niu: "zero — no caffeine, no taurine, unlike energy drinks",
+  },
+  {
+    k: "The ~500 ml/hour rule while dancing",
+    water: "fills the quota, not the loss",
+    niu: "same quota, loss covered",
+  },
+] as const;
+
+function NightHydration() {
+  return (
+    <section className="bg-espresso">
+      <div className="mx-auto max-w-4xl px-6 py-32">
+        <Reveal>
+          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Night hydration</p>
+          <h2 className="font-display text-4xl leading-tight md:text-5xl">
+            More than water, when the night runs long.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg text-cream/70">
+            Hours on a dancefloor are event medicine, not a gym session: you
+            sweat out salts, and plain water can&apos;t put them back. Club
+            harm-reduction guidance has said it for decades — drink about
+            500 ml an hour, and make it electrolytes, not just water.
+          </p>
+        </Reveal>
+        <Reveal delay={150}>
+          <div className="mt-14 overflow-x-auto">
+            <table className="w-full min-w-[560px] text-left text-sm">
+              <thead>
+                <tr className="border-b border-cream/20 text-xs tracking-[0.2em] uppercase">
+                  <th className="py-3 pr-6 font-normal text-cream/45">A long night costs</th>
+                  <th className="py-3 pr-6 font-normal text-cream/45">Plain water</th>
+                  <th className="py-3 font-semibold text-amber">NIU</th>
+                </tr>
+              </thead>
+              <tbody>
+                {HYDRATION_ROWS.map((r) => (
+                  <tr key={r.k} className="border-b border-cream/8 align-top">
+                    <td className="py-4 pr-6 text-cream/85">{r.k}</td>
+                    <td className="py-4 pr-6 text-cream/50">{r.water}</td>
+                    <td className="py-4 text-cream">{r.niu}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+        <Reveal delay={250}>
+          <p className="mt-10 text-xs leading-relaxed text-cream/35">
+            Based on event-medicine and club harm-reduction hydration guidance
+            (≈500 ml of fluid per hour of dancing, electrolyte drinks preferred
+            over plain water). NIU is a drink, not a medical product.
+          </p>
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
