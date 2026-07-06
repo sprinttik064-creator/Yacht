@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
 import { asset } from "@/lib/asset";
+import { SUBSTANCES } from "@/lib/science-data";
 
 const FLAVORS = [
   {
@@ -10,6 +11,7 @@ const FLAVORS = [
     cap: "ivory",
     note: "The clean base. Coconut water, electrolytes, nothing to hide.",
     serve: "NIU Pure · cracked ice · nothing else",
+    cocktail: { name: "White Palm", spec: "50 ml silver tequila · 100 ml NIU Pure · squeeze of lime · over rocks" },
     image: "/img/bottle-pure.webp",  },
   {
     name: "Lime",
@@ -17,6 +19,7 @@ const FLAVORS = [
     cap: "green",
     note: "Cuts through the dark like a squeeze of lime over ice.",
     serve: "NIU Lime · crushed ice · lime wedge",
+    cocktail: { name: "Midnight Gimlet", spec: "50 ml dry gin · 100 ml NIU Lime · crushed ice · lime wedge" },
     image: "/img/bottle-lime.webp",  },
   {
     name: "Piña",
@@ -24,6 +27,7 @@ const FLAVORS = [
     cap: "golden",
     note: "Pineapple and coconut — the island side of the night.",
     serve: "NIU Piña · crushed ice · pineapple slice",
+    cocktail: { name: "Piña Noir", spec: "50 ml white rum · 100 ml NIU Piña · pineapple slice — the colada, minus the cream" },
     image: "/img/bottle-pina.webp",  },
   {
     name: "Ginger Yuzu",
@@ -31,6 +35,7 @@ const FLAVORS = [
     cap: "blue",
     note: "Heat and citrus. Candidate for the lightly sparkling edition.",
     serve: "NIU Ginger Yuzu · highball ice · yuzu zest",
+    cocktail: { name: "Tokyo Highball", spec: "45 ml Japanese whisky · 110 ml NIU Ginger Yuzu · tall glass · citrus zest" },
     image: "/img/bottle-gingeryuzu.webp",  },
 ] as const;
 
@@ -421,8 +426,14 @@ function Flavors() {
                   <p className="text-xs tracking-[0.3em] text-cream/40 uppercase">Serve it</p>
                   <p className="mt-2 text-cream/70">{f.serve}</p>
                 </div>
+                <div className="mt-6 max-w-md border-t border-cream/10 pt-6">
+                  <p className="text-xs tracking-[0.3em] text-amber/80 uppercase">
+                    Or mix it · {f.cocktail.name}
+                  </p>
+                  <p className="mt-2 text-cream/70">{f.cocktail.spec}</p>
+                </div>
                 <p className="mt-8 text-xs text-cream/40">
-                  200 ml · {f.cap} cap · coconut mixer
+                  200 ml · {f.cap} cap · coconut mixer · enjoy responsibly
                 </p>
               </Reveal>
             </div>
@@ -497,6 +508,54 @@ function ScienceTeaser() {
             </Reveal>
           ))}
         </div>
+        {/* substance map — same data as /science */}
+        <Reveal delay={200}>
+          <p className="mt-20 mb-2 text-xs tracking-[0.5em] text-amber uppercase">
+            Substance by substance
+          </p>
+          <h3 className="font-display text-3xl md:text-4xl">
+            What hydration can — and cannot — do.
+          </h3>
+        </Reveal>
+        <div className="mt-10 space-y-5">
+          {SUBSTANCES.map((s, i) => (
+            <Reveal key={s.name} delay={i * 60}>
+              <div className="rounded-lg border border-cream/10 bg-espresso-2 p-6 md:p-7">
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="font-display text-xl">{s.name}</p>
+                  <span
+                    className={`rounded-full border px-3 py-1 text-[10px] tracking-[0.15em] uppercase ${
+                      s.relevant
+                        ? "border-amber/60 text-amber"
+                        : "border-cream/25 text-cream/45"
+                    }`}
+                  >
+                    {s.tag}
+                  </span>
+                </div>
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] text-cream/40 uppercase">On the body</p>
+                    <p className="mt-2 text-sm leading-relaxed text-cream/70">{s.body}</p>
+                  </div>
+                  <div>
+                    <p className="text-[11px] tracking-[0.2em] text-cream/40 uppercase">The hydration angle</p>
+                    <p className="mt-2 text-sm leading-relaxed text-cream/70">{s.angle}</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-[11px] tracking-[0.12em] text-amber/70 uppercase">{s.src}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={250}>
+          <p className="mt-8 rounded-lg border border-neon/30 bg-neon/5 px-5 py-4 text-sm leading-relaxed text-cream/70">
+            The line that matters most: overheating, confusion, collapse or
+            unresponsiveness is a medical emergency. Fluids are not the answer
+            at that point — medics are.
+          </p>
+        </Reveal>
+
         <Reveal delay={300}>
           <p className="mt-12 max-w-2xl text-cream/70">
             NIU&apos;s recipe sits exactly where that guidance points — sodium dosed
