@@ -2,26 +2,39 @@
  * FY Jul 2026 – Jun 2027 seeding model built on HUGEL's touring calendar.
  * Announced shows are sourced (see SOURCES); Dec'26–Jun'27 show counts are
  * modeled from his 2025–26 seasonal pattern and labeled as estimates.
- * Revenue = bottles × €1.80 club buy-in (briefing). Conservative scenario.
+ *
+ * Bottom-up mechanics (all knobs listed in ASSUMPTIONS):
+ * - Show-night stocking tiered by venue class: superclub/day-club 200,
+ *   large club 120, standard room/beach 80 bottles per night.
+ * - 40 unique venues seeded over the year; 40% convert to standing
+ *   accounts (16 signed by Jun '27) in three regional cohorts with real
+ *   seasonality: Med/Ibiza active May–Sep, Tulum/LatAm active Dec–Apr,
+ *   US/Vegas year-round.
+ * - Standing accounts reorder by tier: superclub ~200 bottles/week,
+ *   standard ~100/week; launch order 500/300; the conversion month counts
+ *   the launch order plus half a month of reorders (no double-dip).
+ *
+ * Revenue = bottles × €1.80 club buy-in. This is the CALENDAR-ONLY base
+ * case: it shows what the tour carries organically. The briefing's €200k
+ * Y1 target additionally assumes a direct venue-sales layer on top of the
+ * calendar — kept out of this model on purpose.
  */
 
 export const PRICE = 1.8; // € club buy-in per bottle
 
-// Monthly model. bottles = show-night stocking (180/club night)
-// + standing accounts (~150 bottles/week) + launch orders (300 per new account).
 export const MONTHLY = [
-  { m: "Jul", shows: 15, club: 12, accounts: 0,  bottles: 2160,  est: false },
-  { m: "Aug", shows: 13, club: 12, accounts: 3,  bottles: 5010,  est: false },
-  { m: "Sep", shows: 8,  club: 7,  accounts: 6,  bottles: 6060,  est: false },
-  { m: "Oct", shows: 7,  club: 6,  accounts: 8,  bottles: 6880,  est: true },
-  { m: "Nov", shows: 7,  club: 6,  accounts: 10, bottles: 8180,  est: true },
-  { m: "Dec", shows: 7,  club: 6,  accounts: 12, bottles: 9480,  est: true },
-  { m: "Jan", shows: 8,  club: 7,  accounts: 14, bottles: 10960, est: true },
-  { m: "Feb", shows: 5,  club: 5,  accounts: 15, bottles: 10950, est: true },
-  { m: "Mar", shows: 7,  club: 6,  accounts: 16, bottles: 11780, est: true },
-  { m: "Apr", shows: 6,  club: 5,  accounts: 17, bottles: 12250, est: true },
-  { m: "May", shows: 8,  club: 6,  accounts: 18, bottles: 13080, est: true },
-  { m: "Jun", shows: 12, club: 10, accounts: 20, bottles: 15400, est: true },
+  { m: "Jul", shows: 15, club: 12, signed: 0,  active: 0,  bottles: 1800, est: false },
+  { m: "Aug", shows: 13, club: 12, signed: 2,  active: 2,  bottles: 3088, est: false },
+  { m: "Sep", shows: 8,  club: 7,  signed: 4,  active: 4,  bottles: 3867, est: false },
+  { m: "Oct", shows: 7,  club: 6,  signed: 6,  active: 3,  bottles: 2416, est: true },
+  { m: "Nov", shows: 7,  club: 6,  signed: 7,  active: 4,  bottles: 2767, est: true },
+  { m: "Dec", shows: 7,  club: 6,  signed: 9,  active: 6,  bottles: 4213, est: true },
+  { m: "Jan", shows: 8,  club: 7,  signed: 11, active: 8,  bottles: 5294, est: true },
+  { m: "Feb", shows: 5,  club: 5,  signed: 12, active: 9,  bottles: 5245, est: true },
+  { m: "Mar", shows: 7,  club: 6,  signed: 13, active: 10, bottles: 6216, est: true },
+  { m: "Apr", shows: 6,  club: 5,  signed: 14, active: 11, bottles: 6664, est: true },
+  { m: "May", shows: 8,  club: 6,  signed: 15, active: 11, bottles: 6944, est: true },
+  { m: "Jun", shows: 12, club: 10, signed: 16, active: 12, bottles: 7977, est: true },
 ] as const;
 
 export const TOTALS = (() => {
@@ -31,8 +44,10 @@ export const TOTALS = (() => {
     shows,
     bottles,
     revenue: Math.round(bottles * PRICE),
-    accounts: MONTHLY[MONTHLY.length - 1].accounts,
-    venues: 45,
+    signed: MONTHLY[MONTHLY.length - 1].signed,
+    activeJun: MONTHLY[MONTHLY.length - 1].active,
+    venues: 40,
+    conversion: Math.round((MONTHLY[MONTHLY.length - 1].signed / 40) * 100), // = 40
   };
 })();
 
@@ -44,7 +59,13 @@ export const CUMULATIVE = (() => {
   });
 })();
 
-export const TARGET = 200_000; // € — briefing's conservative Y1
+// Briefing's conservative Y1 target — shown as a reference line. The gap
+// between the calendar-only base and this line is the direct-sales layer.
+export const TARGET = 200_000;
+
+// Sensitivity, stated not charted: conversion 30% / 40% / 50% with lower
+// and upper reorder rates.
+export const RANGE = { low: 75_000, base: TOTALS.revenue, high: 145_000 };
 
 export const REGIONS = [
   { label: "Europe · Ibiza", value: 45, detail: "Hï Thursdays + EU festivals, Jun–Sep core" },
@@ -76,11 +97,12 @@ export const SHOWS = [
 
 export const ASSUMPTIONS = [
   { k: "Club buy-in", v: "€1.80 per bottle (briefing)" },
-  { k: "Show-night stocking", v: "180 bottles per club/day-club night" },
+  { k: "Show-night stocking", v: "by venue class: 200 superclub · 120 large · 80 standard" },
   { k: "Festivals", v: "sampling & brand only — €0 in this model" },
-  { k: "Venue → account conversion", v: "40% of seeded venues reorder" },
-  { k: "Standing account", v: "~150 bottles / week while in season" },
-  { k: "Launch order", v: "300 bottles when an account converts" },
+  { k: "Venue → account conversion", v: "40% of 40 seeded venues → 16 accounts" },
+  { k: "Standing account", v: "~200 btl/wk superclub · ~100 btl/wk standard, in season" },
+  { k: "Seasonality", v: "Ibiza/Med May–Sep · Tulum/LatAm Dec–Apr · US year-round" },
+  { k: "Launch order", v: "500 / 300 bottles + half-month reorders in month one" },
   { k: "Bottle-service price to guest", v: "€9–12 — the club keeps the margin" },
 ] as const;
 
@@ -93,7 +115,7 @@ export const PHASES = [
   {
     q: "Phase 2 · Oct 2026 – Mar 2027",
     title: "Follow the calendar",
-    text: "US club headlines (Echostage, Greek Theatre), LatAm spring run, Tulum/Zamna season, Miami Music Week. Every stop seeds a venue; accounts compound to ~16.",
+    text: "US club headlines (Echostage, Greek Theatre), LatAm spring run, Tulum/Zamna season, Miami Music Week. Every stop seeds a venue; signed accounts compound to ~13.",
   },
   {
     q: "Phase 3 · Apr–Jun 2027",

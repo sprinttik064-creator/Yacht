@@ -6,6 +6,7 @@ import {
   CUMULATIVE,
   MONTHLY,
   PHASES,
+  RANGE,
   REGIONS,
   SHOWS,
   TARGET,
@@ -41,9 +42,10 @@ export default function Plan() {
           </h1>
           <p className="mt-4 max-w-2xl text-cream/65">
             Every HUGEL show puts NIU on a bottle-service table; every venue that
-            reorders becomes a standing account. Conservative scenario, anchored to
-            the announced calendar — two active residencies and ~{TOTALS.shows} shows
-            over the next 12 months.
+            reorders becomes a standing account. Calendar-only base case, anchored
+            to the announced calendar — two active residencies and ~{TOTALS.shows}{" "}
+            shows over the next 12 months. No direct-sales layer is assumed: this
+            is what the tour carries on its own.
           </p>
         </header>
 
@@ -51,9 +53,9 @@ export default function Plan() {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {[
             [String(TOTALS.shows), "shows in 12 months", "Hï Ibiza weekly + Wynn Vegas + tour"],
-            [String(TOTALS.venues), "venues seeded", `${TOTALS.accounts} standing accounts by Jun '27`],
-            [`${Math.round(TOTALS.bottles / 1000)}k`, "bottles (club buy-in)", "180/night + 150/week per account"],
-            [eur(TOTALS.revenue), "FY revenue", `vs €200k conservative target`],
+            [String(TOTALS.venues), "venues seeded", `${TOTALS.signed} accounts signed · ${TOTALS.activeJun} active in Jun '27`],
+            [`${Math.round(TOTALS.bottles / 1000)}k`, "bottles (club buy-in)", "tiered stocking + in-season reorders"],
+            [eur(TOTALS.revenue), "FY base case", `range ${eur(RANGE.low)}–${eur(RANGE.high)} · briefing target €200k`],
           ].map(([n, l, d]) => (
             <Card key={l as string} className="!p-5">
               <p className="font-display text-3xl text-amber md:text-4xl">{n}</p>
@@ -75,7 +77,7 @@ export default function Plan() {
               data={MONTHLY.map((r) => ({
                 label: r.est ? `${r.m}*` : r.m,
                 value: r.bottles,
-                detail: `${r.shows} shows · ${r.accounts} standing accounts`,
+                detail: `${r.shows} shows · ${r.active} active accounts`,
               }))}
               format={kBottles}
               unit="bottles"
@@ -84,8 +86,9 @@ export default function Plan() {
           <Card>
             <Kicker>Cumulative revenue vs target</Kicker>
             <p className="mb-4 text-sm text-cream/55">
-              Club buy-in €1.80/bottle. The €200k line is the briefing&apos;s
-              conservative Y1 case.
+              Club buy-in €1.80/bottle. The dashed €200k line is the briefing&apos;s
+              Y1 target — the gap above the calendar-only base is the direct-sales
+              layer the target assumes.
             </p>
             <CumulativeLine data={[...CUMULATIVE]} target={TARGET} targetLabel="€200k" format={eur} />
           </Card>
@@ -110,8 +113,8 @@ export default function Plan() {
                 {[
                   [String(TOTALS.shows), "shows"],
                   [String(TOTALS.venues), "venues seeded"],
-                  ["40%", "convert"],
-                  [String(TOTALS.accounts), "accounts"],
+                  [`${TOTALS.conversion}%`, "convert"],
+                  [String(TOTALS.signed), "accounts"],
                 ].map(([n, l]) => (
                   <div key={l}>
                     <p className="font-display text-xl text-cream">{n}</p>
@@ -137,8 +140,11 @@ export default function Plan() {
             <p className="mt-6 text-xs leading-relaxed text-cream/40">
               * Oct '26 – Jun '27 show counts are estimates extrapolated from the
               2025–26 pattern (Tulum/Zamna winters, Miami Music Week, Ibiza summers).
-              Deal terms, margins and legal are out of scope until the concept is
-              agreed.
+              Sensitivity: conversion 30/40/50% with lower/upper reorder rates gives
+              {" "}{eur(RANGE.low)}–{eur(RANGE.high)} around the {eur(RANGE.base)} base.
+              Reaching the €200k briefing target adds a direct venue-sales layer on
+              top of the calendar — deliberately not modeled here. Deal terms,
+              margins and legal are out of scope until the concept is agreed.
             </p>
           </Card>
         </div>
@@ -196,7 +202,8 @@ export default function Plan() {
                     <th className="py-2 pr-4 font-normal">Month</th>
                     <th className="py-2 pr-4 font-normal">Shows</th>
                     <th className="py-2 pr-4 font-normal">Club nights</th>
-                    <th className="py-2 pr-4 font-normal">Accounts</th>
+                    <th className="py-2 pr-4 font-normal">Signed</th>
+                    <th className="py-2 pr-4 font-normal">Active</th>
                     <th className="py-2 pr-4 font-normal">Bottles</th>
                     <th className="py-2 font-normal">Revenue</th>
                   </tr>
@@ -207,7 +214,8 @@ export default function Plan() {
                       <td className="py-2 pr-4">{r.m}{r.est ? "*" : ""}</td>
                       <td className="py-2 pr-4">{r.shows}</td>
                       <td className="py-2 pr-4">{r.club}</td>
-                      <td className="py-2 pr-4">{r.accounts}</td>
+                      <td className="py-2 pr-4">{r.signed}</td>
+                      <td className="py-2 pr-4">{r.active}</td>
                       <td className="py-2 pr-4">{r.bottles.toLocaleString("en")}</td>
                       <td className="py-2">€{Math.round(r.bottles * 1.8).toLocaleString("en")}</td>
                     </tr>
