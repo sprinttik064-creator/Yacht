@@ -7,7 +7,7 @@ import { asset } from "@/lib/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FRAME_COUNT = 242;
+const FRAME_COUNT = 121;
 const frameSrc = (i: number) => asset(`/hero/${String(i + 1).padStart(4, "0")}.webp`);
 
 /**
@@ -41,11 +41,9 @@ export default function HeroScrub() {
     // window tracks the bottle: centered on the 4-bottle lineup, drifting right
     // as the camera settles on the Pure bottle (~0.73), then easing back to
     // center as the dive dissolves into the abstract liquid.
-    const focalX = (i: number) => {
-      if (i <= 120) return 0.5 + (0.73 - 0.5) * (i / 120);
-      if (i <= 200) return 0.73 + (0.5 - 0.73) * ((i - 121) / 79);
-      return 0.5;
-    };
+    // v3 HD clip: straight push-in from the 4-bottle lineup to the Pure
+    // bottle sitting at ~0.74 of frame width in the last frame.
+    const focalX = (i: number) => 0.5 + (0.74 - 0.5) * (i / (FRAME_COUNT - 1));
 
     const draw = () => {
       // nearest loaded frame at or below the requested one, so scrubbing
@@ -140,7 +138,7 @@ export default function HeroScrub() {
   }
 
   return (
-    <div ref={wrapRef} className="relative h-[500vh]">
+    <div ref={wrapRef} className="relative h-[300vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
         <canvas ref={canvasRef} className="h-full w-full" />
         <div ref={overlayRef}>
