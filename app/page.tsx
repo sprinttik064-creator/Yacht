@@ -192,6 +192,53 @@ function Nutrition() {
             Approximate typical values — final figures follow lab analysis of the production recipe.
           </p>
         </Reveal>
+
+        {/* The anti-energy-drink, visualized: NIU vs the caffeinated serve */}
+        <Reveal delay={300}>
+          <div className="mx-auto mt-14 max-w-2xl rounded-lg border border-cream/10 bg-espresso-2 p-8 text-left">
+            <p className="mb-6 text-center text-xs tracking-[0.4em] text-amber uppercase">
+              NIU vs the energy-drink serve · per 250 ml
+            </p>
+            <div className="space-y-5">
+              {[
+                { label: "Caffeine", niu: 0, them: 80, max: 80, unit: "mg", note: "nothing racing the heart at 4 a.m." },
+                { label: "Added sugar", niu: 0, them: 27, max: 27, unit: "g", note: "no crash on the dance floor" },
+                { label: "Electrolytes", niu: 700, them: 0, max: 700, unit: "mg", note: "rehydrates instead of dehydrating" },
+              ].map((r) => (
+                <div key={r.label}>
+                  <div className="mb-1.5 flex items-baseline justify-between text-sm">
+                    <span className="text-cream">{r.label}</span>
+                    <span className="text-xs text-cream/45">{r.note}</span>
+                  </div>
+                  {[
+                    { who: "NIU", v: r.niu, color: "var(--color-amber)" },
+                    { who: "Energy drink", v: r.them, color: "var(--color-neon)" },
+                  ].map((b) => (
+                    <div key={b.who} className="mb-1 flex items-center gap-3">
+                      <span className="w-24 shrink-0 text-[11px] tracking-wide text-cream/50 uppercase">{b.who}</span>
+                      <div className="h-3 flex-1">
+                        <div
+                          className="h-3 rounded-[3px]"
+                          style={{
+                            width: `${Math.max((b.v / r.max) * 100, 1.5)}%`,
+                            background: b.v === 0 ? "rgba(244,237,227,0.15)" : b.color,
+                          }}
+                        />
+                      </div>
+                      <span className="w-16 shrink-0 text-right text-sm text-cream/80">
+                        {b.v} {r.unit}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 border-t border-cream/10 pt-4 text-center text-sm text-cream/55">
+              Zero stimulants. The night is loud enough — NIU carries you through
+              it and doesn&apos;t charge interest in the morning.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
