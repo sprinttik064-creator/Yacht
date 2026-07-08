@@ -33,6 +33,9 @@ const SOURCES = [
   "Pennings EJ, Leccese AP, Wolff FA. Effects of concurrent use of alcohol and cocaine. Addiction, 2002.",
   "Shahani R et al. Ketamine-associated ulcerative cystitis: a new clinical entity. Urology, 2007.",
   "Mason PE, Kerns WP. Gamma hydroxybutyric acid (GHB) intoxication. Academic Emergency Medicine, 2002.",
+  "Vanattou-Saïfoudine N, McNamara R, Harkin A. Caffeine provokes adverse interactions with MDMA (“ecstasy”) and related psychostimulants: mechanisms and mediators. British Journal of Pharmacology, 2012.",
+  "Passie T et al. The pharmacology of psilocybin. Addiction Biology, 2002.",
+  "Johnson MW, Richards WA, Griffiths RR. Human hallucinogen research: guidelines for safety. Journal of Psychopharmacology, 2008.",
 ] as const;
 
 function Kicker({ children }: { children: React.ReactNode }) {

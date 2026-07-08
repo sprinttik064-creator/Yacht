@@ -528,17 +528,13 @@ function HydrationEdge() {
           </Reveal>
           <Reveal delay={120}>
             <p className="mt-6 text-lg leading-relaxed text-cream/70">
-              Plain water refills the tank — but not the salts a sweaty night
-              takes out. Worse, by diluting the blood it switches thirst off
-              and urine on before you&apos;ve actually caught up. Rehydration
-              sticks when fluid arrives with sodium and potassium; that&apos;s
-              what the beverage-hydration research keeps finding, and it&apos;s
-              what NIU is made of.
+              Water refills the tank but not the salts — and rehydration only
+              sticks when fluid arrives with sodium and potassium. That&apos;s
+              the whole chart on the right.
             </p>
             <p className="mt-5 text-xs leading-relaxed text-cream/35">
-              Maughan et al., American Journal of Clinical Nutrition, 2016
-              (beverage hydration index — sodium content drives fluid
-              retention) · ACSM fluid-replacement guidance.
+              Maughan et al., AJCN 2016 (beverage hydration index) · ACSM
+              fluid-replacement guidance.
             </p>
           </Reveal>
         </div>
@@ -588,28 +584,21 @@ function HydrationEdge() {
   );
 }
 
-/* The science teaser: three cited findings + a button to the full research
-   note at /science. Cited harm-reduction literature, no endorsement. */
-const SCIENCE_CARDS = [
-  {
-    n: "01",
-    title: "Heat is the first enemy",
-    text: "MDMA impairs the body's thermoregulation, and hours of dancing in a packed room push core temperature toward heatstroke territory — the classic dancefloor emergency.",
-    src: "Parrott · Drug & Alcohol Dependence, 2012",
-  },
-  {
-    n: "02",
-    title: "Plain water can turn on you",
-    text: "MDMA triggers vasopressin release, so the body retains water. Large volumes of plain water then dilute blood sodium — hyponatremia, the mechanism behind the best-known ecstasy-related deaths.",
-    src: "Henry et al. · The Lancet, 1998 · Hartung et al. · QJM, 2002",
-  },
-  {
-    n: "03",
-    title: "Guidance says: electrolytes",
-    text: "Club harm-reduction guidance has converged since the '90s: about 500 ml of fluid per hour while dancing — isotonic, electrolyte-carrying drinks preferred over plain water.",
-    src: "DanceSafe · UK safer-clubbing guidance",
-  },
+/* Night-hydration science, investor-density: three one-line findings, a
+   compact relevance meter over the substance map, and the /science link.
+   Full cited prose lives at /science — this is the diagram, not the essay. */
+const SCIENCE_FACTS = [
+  { n: "38°C+", title: "Heat is the first enemy", text: "hours of dancing are a thermal event", src: "Parrott 2012 · CDC 2014" },
+  { n: "Na↓", title: "Plain water can turn on you", text: "in volume it dilutes blood sodium", src: "The Lancet 1998 · QJM 2002" },
+  { n: "500 ml/h", title: "The guidance since the '90s", text: "electrolyte drinks over plain water", src: "DanceSafe · UK safer clubbing" },
 ] as const;
+
+const METER = {
+  full: { label: "helps", segments: 3, color: "var(--color-amber)" },
+  partial: { label: "partly", segments: 2, color: "var(--color-amber)" },
+  none: { label: "won't fix it", segments: 1, color: "rgba(244,237,227,0.28)" },
+  warning: { label: "avoid in the glass", segments: 3, color: "var(--color-neon)" },
+} as const;
 
 function ScienceTeaser() {
   return (
@@ -622,80 +611,73 @@ function ScienceTeaser() {
           <h2 className="font-display max-w-3xl text-4xl leading-tight md:text-5xl">
             What the research says about long nights.
           </h2>
-          <p className="mt-6 max-w-2xl text-lg text-cream/70">
-            Thirty years of clubbing medicine, three findings that matter behind
-            a bar — cited, not invented.
-          </p>
-        </Reveal>
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {SCIENCE_CARDS.map((c, i) => (
-            <Reveal key={c.n} delay={i * 120}>
-              <div className="flex h-full flex-col rounded-lg border border-cream/10 bg-espresso-2 p-7">
-                <p className="font-display text-3xl text-amber/70">{c.n}</p>
-                <p className="font-display mt-3 text-xl leading-snug">{c.title}</p>
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-cream/65">{c.text}</p>
-                <p className="mt-5 text-[11px] tracking-[0.12em] text-amber/80 uppercase">
-                  {c.src}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        {/* substance map — same data as /science */}
-        <Reveal delay={200}>
-          <p className="mt-20 mb-2 text-xs tracking-[0.5em] text-amber uppercase">
-            Substance by substance
-          </p>
-          <h3 className="font-display text-3xl md:text-4xl">
-            What hydration can — and cannot — do.
-          </h3>
-        </Reveal>
-        <div className="mt-10 space-y-5">
-          {SUBSTANCES.map((s, i) => (
-            <Reveal key={s.name} delay={i * 60}>
-              <div className="rounded-lg border border-cream/10 bg-espresso-2 p-6 md:p-7">
-                <div className="flex flex-wrap items-center gap-3">
-                  <p className="font-display text-xl">{s.name}</p>
-                  <span
-                    className={`rounded-full border px-3 py-1 text-[10px] tracking-[0.15em] uppercase ${
-                      s.relevant
-                        ? "border-amber/60 text-amber"
-                        : "border-cream/25 text-cream/45"
-                    }`}
-                  >
-                    {s.tag}
-                  </span>
-                </div>
-                <div className="mt-4 grid gap-4 md:grid-cols-2">
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] text-cream/40 uppercase">On the body</p>
-                    <p className="mt-2 text-sm leading-relaxed text-cream/70">{s.body}</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] text-cream/40 uppercase">The hydration angle</p>
-                    <p className="mt-2 text-sm leading-relaxed text-cream/70">{s.angle}</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-[11px] tracking-[0.12em] text-amber/70 uppercase">{s.src}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={250}>
-          <p className="mt-8 rounded-lg border border-neon/30 bg-neon/5 px-5 py-4 text-sm leading-relaxed text-cream/70">
-            The line that matters most: overheating, confusion, collapse or
-            unresponsiveness is a medical emergency. Fluids are not the answer
-            at that point — medics are.
-          </p>
         </Reveal>
 
-        <Reveal delay={300}>
-          <p className="mt-12 max-w-2xl text-cream/70">
-            NIU&apos;s recipe sits exactly where that guidance points — sodium dosed
-            at isotonic level, natural potassium, zero caffeine on top of a racing
-            heart. The full note, with the case history and sources, is one click away.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-6">
+        {/* three findings, one line each */}
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
+          {SCIENCE_FACTS.map((c, i) => (
+            <Reveal key={c.n} delay={i * 100}>
+              <div className="h-full rounded-lg border border-cream/10 bg-espresso-2 p-6">
+                <p className="font-display text-3xl text-amber">{c.n}</p>
+                <p className="mt-2 font-semibold text-cream">{c.title}</p>
+                <p className="mt-1 text-sm text-cream/55">{c.text}</p>
+                <p className="mt-3 text-[10px] tracking-[0.12em] text-amber/70 uppercase">{c.src}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* relevance meter — where an electrolyte drink genuinely matters */}
+        <Reveal delay={150}>
+          <div className="mt-14 rounded-lg border border-cream/10 bg-espresso-2 p-6 md:p-8">
+            <div className="mb-5 flex flex-wrap items-baseline justify-between gap-2">
+              <p className="text-xs tracking-[0.4em] text-amber uppercase">
+                Where hydration actually helps
+              </p>
+              <p className="text-[11px] text-cream/35">
+                honest map · full note with citations on /science
+              </p>
+            </div>
+            <div className="space-y-3">
+              {SUBSTANCES.map((s) => {
+                const m = METER[s.meter];
+                return (
+                  <div key={s.name} className="flex items-center gap-3 md:gap-4">
+                    <span className="w-40 shrink-0 text-sm text-cream/85 md:w-48">{s.name}</span>
+                    <span className="flex w-16 shrink-0 gap-1">
+                      {[0, 1, 2].map((i) => (
+                        <span
+                          key={i}
+                          className="h-2.5 w-4 rounded-[2px]"
+                          style={{
+                            background: i < m.segments ? m.color : "rgba(244,237,227,0.08)",
+                          }}
+                        />
+                      ))}
+                    </span>
+                    <span
+                      className="w-24 shrink-0 text-[11px] tracking-wide uppercase md:w-28"
+                      style={{ color: s.meter === "warning" ? "var(--color-neon)" : s.meter === "none" ? "rgba(244,237,227,0.4)" : "var(--color-amber)" }}
+                    >
+                      {m.label}
+                    </span>
+                    <span className="hidden flex-1 truncate text-sm text-cream/45 md:block">{s.short}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="mt-6 border-t border-cream/10 pt-4 text-sm leading-relaxed text-cream/60">
+              One row is about the mixer itself: caffeinated serves stack a second
+              stimulant on top of the night — published work links caffeine with
+              amplified MDMA hyperthermia and heart-rate load. NIU adds fluid and
+              salts, not stimulation. And the red line stands: collapse or
+              unresponsiveness means medics, not fluids.
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={250}>
+          <div className="mt-10 flex flex-wrap items-center gap-6">
             <Link
               href="/science"
               className="inline-block rounded-full border border-amber px-8 py-3.5 text-sm font-semibold tracking-[0.15em] text-amber uppercase transition-colors duration-300 hover:bg-amber hover:text-espresso"
