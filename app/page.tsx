@@ -87,9 +87,6 @@ export default function Home() {
       <Flavors />
       <HydrationEdge />
       <ScienceTeaser />
-      <Gallery />
-      <Moodboard />
-      <Lookbook />
       <Brandbook />
       <LastCall />
     </main>
@@ -690,117 +687,6 @@ function ScienceTeaser() {
             </p>
           </div>
         </Reveal>
-      </div>
-    </section>
-  );
-}
-
-function Gallery() {
-  const shots = [
-    { src: "/img/packshot.webp", alt: "The NIU lineup on the bar" },
-    { src: "/img/bottle-pure.webp", alt: "NIU Pure close-up" },
-    { src: "/img/bottle-lime.webp", alt: "NIU Lime under the green light" },
-    { src: "/img/bottle-pina.webp", alt: "NIU Piña on the backbar" },
-    { src: "/img/bottle-gingeryuzu.webp", alt: "NIU Ginger Yuzu in the blue hour" },
-    { src: "/img/bottle-075-pure.webp", alt: "NIU Pure 0.75 L bar bottle" },
-    { src: "/img/liquid-wall.webp", alt: "Inside the pour" },
-  ];
-  return (
-    <section className="bg-espresso">
-      <div className="px-6 py-32">
-        <Reveal className="mx-auto max-w-6xl">
-          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Gallery</p>
-          <h2 className="font-display mb-16 text-4xl md:text-5xl">On the backbar</h2>
-        </Reveal>
-        <div className="flex gap-6 overflow-x-auto pb-6 [scrollbar-width:thin]">
-          {shots.map((s) => (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              key={s.src}
-              src={asset(s.src)}
-              alt={s.alt}
-              className="h-[38vh] w-auto shrink-0 rounded-lg object-cover md:h-[60vh]"
-            />
-          ))}
-          <div className="flex h-[38vh] w-[60vw] shrink-0 items-center justify-center rounded-lg border border-dashed border-cream/20 px-4 text-center text-sm text-cream/40 md:h-[60vh] md:w-[40vw]">
-            More shots coming — placeholder
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Moodboard() {
-  const swatches = [
-    { hex: "#0E0B08", name: "After hours" },
-    { hex: "#E8A34D", name: "Amber glass" },
-    { hex: "#F4EDE3", name: "Cream label" },
-    { hex: "#C4272E", name: "Red neon" },
-    { hex: "#D9DCE1", name: "Disco silver" },
-  ];
-  return (
-    <section className="bg-espresso-2">
-      <div className="mx-auto max-w-6xl px-6 py-32">
-        <Reveal>
-          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Moodboard</p>
-          <h2 className="font-display mb-16 text-4xl md:text-5xl">The world of NIU</h2>
-        </Reveal>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <Reveal className="col-span-2 row-span-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/img/packshot.webp")} alt="NIU bar scene" className="h-full w-full rounded-lg object-cover" />
-          </Reveal>
-          {swatches.map((s, i) => (
-            <Reveal key={s.hex} delay={i * 60}>
-              <div
-                className="flex h-40 flex-col justify-end rounded-lg p-4"
-                style={{ background: s.hex }}
-              >
-                <p className={`text-xs tracking-widest uppercase ${s.hex === "#F4EDE3" || s.hex === "#D9DCE1" ? "text-espresso" : "text-cream/80"}`}>
-                  {s.name}
-                </p>
-                <p className={`text-[10px] ${s.hex === "#F4EDE3" || s.hex === "#D9DCE1" ? "text-espresso/60" : "text-cream/50"}`}>
-                  {s.hex}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-          <Reveal delay={300}>
-            <div className="flex h-40 items-center justify-center rounded-lg border border-dashed border-cream/20 p-4 text-center text-xs text-cream/40">
-              Textures & references — to be curated together
-            </div>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Lookbook() {
-  return (
-    <section className="bg-espresso">
-      <div className="mx-auto max-w-5xl px-6 py-32">
-        <Reveal>
-          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">Lookbook</p>
-          <h2 className="font-display mb-16 text-4xl md:text-5xl">Scenes from the night</h2>
-        </Reveal>
-        <div className="space-y-24">
-          <Reveal>
-            <figure>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/img/bottle-pina.webp")} alt="NIU Piña under the bar light" className="w-full rounded-lg" />
-              <figcaption className="mt-4 text-sm text-cream/50 italic">
-                Piña, under the bar light. — editorial captions are placeholders
-              </figcaption>
-            </figure>
-          </Reveal>
-          <Reveal>
-            <div className="flex h-[28vh] items-center justify-center rounded-lg border border-dashed border-cream/20 px-8 text-center text-sm text-cream/40 md:h-[50vh]">
-              Serve shots, hands, moments — imagery to be added block by block
-            </div>
-          </Reveal>
-        </div>
       </div>
     </section>
   );
