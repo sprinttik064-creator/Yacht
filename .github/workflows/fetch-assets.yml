@@ -1,0 +1,47 @@
+name: Fetch competitor pack shots
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download front-of-pack images via OpenFoodFacts API + Shopify
+        run: |
+          set -e
+          mkdir -p assets-src/competitors
+          fetch_off () { # barcode, out-name
+            url=$(curl -sf "https://world.openfoodfacts.org/api/v2/product/$1.json?fields=image_front_url" | jq -r '.product.image_front_url // empty')
+            if [ -n "$url" ]; then
+              curl -sfL "$url" -o "assets-src/competitors/$2.jpg" && echo "OK  $2  $url" || echo "DL-FAIL $2"
+            else
+              echo "NO-IMG $2"
+            fi
+          }
+          fetch_off 0898999000022 vita-coco-330
+          fetch_off 3770002316221 vaivai-330
+          fetch_off 0860004385400 100-coconuts-can
+          fetch_off 9300675055765 zico-330
+          fetch_off 5038862136174 innocent-1l
+          fetch_off 0859078002627 harmless-harvest
+          fetch_off 8935330210589 once-upon-a-coconut
+          # Bervera via Shopify product JSON
+          burl=$(curl -sf "https://bervera.com/products/100-pure-coconut-water-24pack.json" | jq -r '.product.images[0].src // empty')
+          if [ -n "$burl" ]; then
+            curl -sfL "$burl" -o assets-src/competitors/bervera-200.jpg && echo "OK bervera $burl" || echo "DL-FAIL bervera"
+          else
+            echo "NO-IMG bervera"
+          fi
+          ls -la assets-src/competitors/
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets-src/competitors
+          git diff --cached --quiet || git commit -m "Fetch competitor pack shots via OpenFoodFacts/Shopify (CI)"
+          git push
