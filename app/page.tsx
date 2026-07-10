@@ -123,6 +123,16 @@ function About() {
             [Placeholder copy — final text to be refined together.]
           </p>
         </Reveal>
+        <Reveal delay={250}>
+          <div className="mt-10">
+            <Link
+              href="/plan"
+              className="inline-block rounded-full bg-amber px-8 py-3.5 text-sm font-semibold tracking-[0.15em] text-espresso uppercase transition-colors duration-300 hover:bg-cream"
+            >
+              View the business plan →
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
