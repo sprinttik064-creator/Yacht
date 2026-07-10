@@ -124,13 +124,21 @@ function About() {
           </p>
         </Reveal>
         <Reveal delay={250}>
-          <div className="mt-10">
+          <div className="mt-14">
+            <p className="mb-4 text-xs tracking-[0.4em] text-cream/50 uppercase">
+              For partners &amp; investors
+            </p>
             <Link
               href="/plan"
-              className="inline-block rounded-full bg-amber px-8 py-3.5 text-sm font-semibold tracking-[0.15em] text-espresso uppercase transition-colors duration-300 hover:bg-cream"
+              className="cta-glow inline-flex items-center gap-3 rounded-full bg-amber px-10 py-5 text-base font-bold tracking-[0.15em] text-espresso uppercase transition-transform duration-300 hover:scale-105"
             >
-              View the business plan →
+              View the business plan
+              <span aria-hidden>→</span>
             </Link>
+            <p className="mt-4 max-w-md text-sm text-cream/45">
+              A year-one model built venue by venue on HUGEL&apos;s tour
+              calendar — shows, standing accounts, bottles, revenue.
+            </p>
           </div>
         </Reveal>
       </div>

@@ -55,6 +55,58 @@ body {
   }
 }
 
+/* Business-plan CTA: pulsing amber glow + a light sheen sweeping across */
+.cta-glow {
+  position: relative;
+  overflow: hidden;
+  animation: cta-pulse 2.8s ease-in-out infinite;
+}
+
+.cta-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-110%);
+  animation: cta-sheen 3.4s ease-in-out infinite;
+}
+
+@keyframes cta-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 24px rgba(232, 163, 77, 0.35),
+      0 0 64px rgba(232, 163, 77, 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 38px rgba(232, 163, 77, 0.6),
+      0 0 96px rgba(232, 163, 77, 0.3);
+  }
+}
+
+@keyframes cta-sheen {
+  0% {
+    transform: translateX(-110%);
+  }
+  55%,
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-glow,
+  .cta-glow::after {
+    animation: none;
+  }
+}
+
 /* Dotted leaders for bar-menu rows */
 .menu-leader {
   flex: 1;
