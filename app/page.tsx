@@ -406,67 +406,95 @@ function Benchmark() {
   );
 }
 
-/* The design gap: every major coconut water ships in supermarket packaging.
-   Archetypes drawn deliberately generic (no brands named) — the argument is
-   aesthetic, and it's documented in COMPETITIVE_SCAN.md. */
+/* The design gap, shown with the real shelf: five actual category packs
+   arranged from loudest to closest-to-premium, then the object none of them
+   makes — an amber glass bottle built for the table. Facts per
+   COMPETITIVE_SCAN.md; competitor marks belong to their owners. */
+const SHELF = [
+  { img: "/img/shelf/vaivai.webp", name: "Vaïvaï", format: "330 ml tetra", note: "confetti carton", best: false },
+  { img: "/img/shelf/vita-coco.webp", name: "Vita Coco", format: "330 ml tetra", note: "the supermarket original", best: false },
+  { img: "/img/shelf/zico.webp", name: "ZICO", format: "330 ml tetra", note: "sports-aisle blue", best: false },
+  { img: "/img/shelf/100-coconuts.webp", name: "100 Coconuts", format: "325 ml can", note: "the category's best can", best: true },
+  { img: "/img/shelf/bervera.webp", name: "Bervera", format: "200 ml PET", note: "the category's best bottle", best: true },
+] as const;
+
 function ShelfProblem() {
-  const archetypes = [
-    { label: "1 L tetra brick", w: "w-16", h: "h-40", cls: "rounded-[4px] bg-gradient-to-b from-[#5f7d8c] to-[#46606d]", top: <div className="mx-auto mt-2 h-2 w-4 rounded-sm bg-[#31454f]" /> },
-    { label: "sports-cap PET", w: "w-12", h: "h-44", cls: "rounded-t-[18px] rounded-b-[6px] bg-gradient-to-b from-[#8fa3ad]/70 to-[#6b7f89]/70", top: <div className="mx-auto mt-1.5 h-3 w-5 rounded-sm bg-[#d8dee2]" /> },
-    { label: "16 oz can", w: "w-14", h: "h-36", cls: "rounded-[8px] bg-gradient-to-b from-[#c25a89] via-[#7a4ec2] to-[#3f8ac2]", top: <div className="mx-auto mt-1.5 h-1.5 w-8 rounded-full bg-[#cfd6da]" /> },
-    { label: "juice carton", w: "w-16", h: "h-38", cls: "rounded-[4px] bg-gradient-to-b from-[#7d9a6b] to-[#5d7a4e]", top: <div className="mx-auto mt-2 h-2 w-3 rounded-sm bg-[#42563a]" /> },
-  ];
   return (
     <section className="bg-espresso-2">
-      <div className="mx-auto max-w-5xl px-6 py-32">
+      <div className="mx-auto max-w-6xl px-6 py-32">
         <Reveal>
           <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The shelf problem</p>
           <h2 className="font-display max-w-3xl text-4xl leading-tight md:text-5xl">
-            The category dresses for the gym.
+            Five ways the category shows up. And the one it forgot.
           </h2>
           <p className="mt-6 max-w-2xl text-lg text-cream/70">
-            Every major coconut water ships in tetra, PET or a loud can — packaging
-            built for supermarket shelves and gym bags. Venues that curate every
-            object on the table can&apos;t put any of it next to a €400 bottle of
-            champagne. That gap is the opportunity.
+            The real shelf, arranged from loud to almost-premium. Even the two
+            strongest designs in coconut water are a slim can and a pastel PET —
+            made for the fridge shelf and the gym bag. Nobody has made the
+            object a top venue can set next to champagne.
           </p>
         </Reveal>
         <Reveal delay={150}>
-          <div className="mt-14 grid items-end gap-8 md:grid-cols-[1fr_auto_1fr]">
-            {/* the category, generalized */}
-            <div>
-              <div className="flex items-end justify-center gap-6 rounded-lg border border-cream/10 bg-espresso p-8 pt-10">
-                {archetypes.map((a) => (
-                  <div key={a.label} className="text-center">
-                    <div className={`${a.w} ${a.h} ${a.cls} mx-auto opacity-60 saturate-[0.55]`}>{a.top}</div>
-                    <p className="mt-3 text-[10px] tracking-wide text-cream/35 uppercase">{a.label}</p>
-                  </div>
-                ))}
+          <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-6">
+            {SHELF.map((s) => (
+              <div key={s.name} className="flex flex-col">
+                <div
+                  className={`relative aspect-[3/4] overflow-hidden rounded-lg border bg-espresso ${
+                    s.best ? "border-cream/25" : "border-cream/10"
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(s.img)}
+                    alt={`${s.name} packaging`}
+                    className="h-full w-full object-cover opacity-80 saturate-[0.85]"
+                  />
+                  {s.best && (
+                    <span className="absolute top-2 left-2 rounded-full bg-espresso/80 px-2.5 py-1 text-[9px] tracking-[0.15em] text-cream/70 uppercase">
+                      category&apos;s best
+                    </span>
+                  )}
+                </div>
+                <p className="mt-2.5 text-sm text-cream/85">{s.name}</p>
+                <p className="text-xs text-cream/40">{s.format} · {s.note}</p>
               </div>
-              <p className="mt-3 text-center text-xs text-cream/40">
-                how the category ships — supermarket formats, generalized
-              </p>
-            </div>
-            <p className="text-center font-display text-2xl text-amber md:pb-16">vs</p>
-            {/* the table standard */}
-            <div>
-              <div className="flex items-end justify-center rounded-lg border border-amber/25 bg-espresso p-4">
+            ))}
+            {/* the missing object */}
+            <div className="col-span-2 flex flex-col md:col-span-1">
+              <div className="relative aspect-[3/4] overflow-hidden rounded-lg border-2 border-amber bg-espresso shadow-[0_0_50px_rgba(232,163,77,0.15)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={asset("/img/bottle-pure-alu.webp")} alt="NIU amber glass bottle" className="h-64 w-auto rounded-md object-cover" />
+                <img
+                  src={asset("/img/bottle-pure-alu.webp")}
+                  alt="NIU amber glass bottle"
+                  className="h-full w-full object-cover"
+                />
+                <span className="absolute top-2 left-2 rounded-full bg-amber px-2.5 py-1 text-[9px] font-semibold tracking-[0.15em] text-espresso uppercase">
+                  built for the table
+                </span>
               </div>
-              <p className="mt-3 text-center text-xs text-cream/40">
-                what a table at a top venue expects a bottle to look like
-              </p>
+              <p className="mt-2.5 text-sm font-semibold text-amber">NIU</p>
+              <p className="text-xs text-cream/40">200 ml amber glass · bar serve</p>
             </div>
           </div>
         </Reveal>
         <Reveal delay={250}>
-          <p className="mt-10 max-w-2xl text-sm leading-relaxed text-cream/50">
-            Documented in the competitive scan: Vita Coco, Vaïvaï, 100 Coconuts,
-            ZICO and the rest all ship retail formats; no coconut brand offers a
-            bar-grade glass serve — and no premium-mixer house (Fever-Tree, Thomas
-            Henry, Three Cents) has a coconut SKU. The aesthetic slot at the top
-            of the market is standing empty.
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {[
+              ["Material", "Tetra, PET and aluminum across the shelf — NIU is the only amber glass."],
+              ["Where it lives", "Retail fridges and DTC boxes — NIU is built for the backbar and the ice bucket."],
+              ["The serve", "Personal sips with straws and screw caps — NIU pours a 200 ml mixer serve, bar-side."],
+            ].map(([t, d]) => (
+              <div key={t} className="rounded-lg border border-cream/10 bg-espresso p-6">
+                <p className="text-xs tracking-[0.3em] text-amber uppercase">{t}</p>
+                <p className="mt-2 text-sm leading-relaxed text-cream/65">{d}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 max-w-2xl text-xs leading-relaxed text-cream/35">
+            Packaging shown for category comparison; trademarks belong to their
+            owners. Formats and channels documented in the competitive scan — no
+            coconut brand offers a bar-grade glass serve, and no premium-mixer
+            house has a coconut SKU.
           </p>
         </Reveal>
       </div>
