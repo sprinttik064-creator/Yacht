@@ -84,7 +84,9 @@ export default function Home() {
       <Nutrition />
       <SugarCompare />
       <Benchmark />
+      <ShelfProblem />
       <Flavors />
+      <Daylight />
       <HydrationEdge />
       <ScienceTeaser />
       <Brandbook />
@@ -404,6 +406,74 @@ function Benchmark() {
   );
 }
 
+/* The design gap: every major coconut water ships in supermarket packaging.
+   Archetypes drawn deliberately generic (no brands named) — the argument is
+   aesthetic, and it's documented in COMPETITIVE_SCAN.md. */
+function ShelfProblem() {
+  const archetypes = [
+    { label: "1 L tetra brick", w: "w-16", h: "h-40", cls: "rounded-[4px] bg-gradient-to-b from-[#5f7d8c] to-[#46606d]", top: <div className="mx-auto mt-2 h-2 w-4 rounded-sm bg-[#31454f]" /> },
+    { label: "sports-cap PET", w: "w-12", h: "h-44", cls: "rounded-t-[18px] rounded-b-[6px] bg-gradient-to-b from-[#8fa3ad]/70 to-[#6b7f89]/70", top: <div className="mx-auto mt-1.5 h-3 w-5 rounded-sm bg-[#d8dee2]" /> },
+    { label: "16 oz can", w: "w-14", h: "h-36", cls: "rounded-[8px] bg-gradient-to-b from-[#c25a89] via-[#7a4ec2] to-[#3f8ac2]", top: <div className="mx-auto mt-1.5 h-1.5 w-8 rounded-full bg-[#cfd6da]" /> },
+    { label: "juice carton", w: "w-16", h: "h-38", cls: "rounded-[4px] bg-gradient-to-b from-[#7d9a6b] to-[#5d7a4e]", top: <div className="mx-auto mt-2 h-2 w-3 rounded-sm bg-[#42563a]" /> },
+  ];
+  return (
+    <section className="bg-espresso-2">
+      <div className="mx-auto max-w-5xl px-6 py-32">
+        <Reveal>
+          <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The shelf problem</p>
+          <h2 className="font-display max-w-3xl text-4xl leading-tight md:text-5xl">
+            The category dresses for the gym.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg text-cream/70">
+            Every major coconut water ships in tetra, PET or a loud can — packaging
+            built for supermarket shelves and gym bags. Venues that curate every
+            object on the table can&apos;t put any of it next to a €400 bottle of
+            champagne. That gap is the opportunity.
+          </p>
+        </Reveal>
+        <Reveal delay={150}>
+          <div className="mt-14 grid items-end gap-8 md:grid-cols-[1fr_auto_1fr]">
+            {/* the category, generalized */}
+            <div>
+              <div className="flex items-end justify-center gap-6 rounded-lg border border-cream/10 bg-espresso p-8 pt-10">
+                {archetypes.map((a) => (
+                  <div key={a.label} className="text-center">
+                    <div className={`${a.w} ${a.h} ${a.cls} mx-auto opacity-60 saturate-[0.55]`}>{a.top}</div>
+                    <p className="mt-3 text-[10px] tracking-wide text-cream/35 uppercase">{a.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-center text-xs text-cream/40">
+                how the category ships — supermarket formats, generalized
+              </p>
+            </div>
+            <p className="text-center font-display text-2xl text-amber md:pb-16">vs</p>
+            {/* the table standard */}
+            <div>
+              <div className="flex items-end justify-center rounded-lg border border-amber/25 bg-espresso p-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={asset("/img/bottle-pure-alu.webp")} alt="NIU amber glass bottle" className="h-64 w-auto rounded-md object-cover" />
+              </div>
+              <p className="mt-3 text-center text-xs text-cream/40">
+                what a table at a top venue expects a bottle to look like
+              </p>
+            </div>
+          </div>
+        </Reveal>
+        <Reveal delay={250}>
+          <p className="mt-10 max-w-2xl text-sm leading-relaxed text-cream/50">
+            Documented in the competitive scan: Vita Coco, Vaïvaï, 100 Coconuts,
+            ZICO and the rest all ship retail formats; no coconut brand offers a
+            bar-grade glass serve — and no premium-mixer house (Fever-Tree, Thomas
+            Henry, Three Cents) has a coconut SKU. The aesthetic slot at the top
+            of the market is standing empty.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function Flavors() {
   return (
     <>
@@ -511,6 +581,65 @@ const EDGE_ROWS = [
   { k: "Potassium", water: "0", niu: "~500 mg", pct: 82 },
   { k: "Magnesium", water: "0", niu: "56 mg", pct: 46 },
 ] as const;
+
+/* Beach-club day shift: the coconut ritual already sells at day venues as
+   heavy fresh coconuts — NIU keeps the ritual, fixes the logistics.
+   Venue price points sourced in COMPETITIVE_SCAN.md (venue serves addendum). */
+const COCO_VS = [
+  { k: "Serve size", fresh: "250–450 ml, luck of the nut", niu: "200 ml, every time" },
+  { k: "Weight behind the bar", fresh: "~1.5–2 kg per serve", niu: "0.39 kg per bottle" },
+  { k: "Chill time", fresh: "hours for a crate", niu: "minutes in ice" },
+  { k: "Shelf life", fresh: "days, refrigerated", niu: "12 months, no fridge" },
+  { k: "Prep", fresh: "machete + trained hands", niu: "twist the cap" },
+  { k: "After the serve", fresh: "2 kg of husk to haul", niu: "a glass bottle back" },
+] as const;
+
+function Daylight() {
+  return (
+    <section className="bg-cream text-espresso">
+      <div className="mx-auto max-w-5xl px-6 py-32">
+        <Reveal>
+          <p className="mb-2 text-xs tracking-[0.5em] text-[#B06212] uppercase">The day shift</p>
+          <h2 className="font-display max-w-3xl text-4xl leading-tight md:text-5xl">
+            The beach-club day drink.
+          </h2>
+          <p className="mt-6 max-w-2xl text-lg text-espresso/70">
+            Day venues already sell the coconut ritual — whole fresh coconuts with
+            a straw at premium prices. The demand is proven at the till; the
+            logistics are the pain. NIU keeps the coconut moment and drops the
+            machete.
+          </p>
+        </Reveal>
+        <Reveal delay={150}>
+          <div className="mt-12 overflow-hidden rounded-lg border border-espresso/15">
+            <div className="grid grid-cols-[1.2fr_1fr_1fr] gap-x-4 border-b border-espresso/15 bg-espresso/5 px-6 py-3 text-[11px] tracking-[0.2em] uppercase">
+              <span className="text-espresso/50">Behind the bar</span>
+              <span className="text-espresso/50">Fresh coconut</span>
+              <span className="font-semibold text-[#B06212]">NIU</span>
+            </div>
+            {COCO_VS.map((r) => (
+              <div key={r.k} className="grid grid-cols-[1.2fr_1fr_1fr] gap-x-4 border-b border-espresso/10 px-6 py-3.5 text-sm last:border-b-0">
+                <span className="text-espresso/80">{r.k}</span>
+                <span className="text-espresso/60">{r.fresh}</span>
+                <span className="font-semibold">{r.niu}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal delay={250}>
+          <p className="mt-8 max-w-2xl text-sm leading-relaxed text-espresso/60">
+            Fresh coconuts on premium day-club menus prove the price point — and
+            every operational line above is why they stay a novelty. A bottled
+            premium serve scales the same ritual to every parasol: stackable
+            cases, minutes to chill, a consistent 200 ml pour, and a label that
+            belongs at the table. Perfect for the hours when nobody wants
+            alcohol yet — and the sun does the selling.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
 
 function HydrationEdge() {
   return (
