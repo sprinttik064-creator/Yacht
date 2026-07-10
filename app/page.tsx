@@ -586,12 +586,21 @@ const EDGE_ROWS = [
    heavy fresh coconuts — NIU keeps the ritual, fixes the logistics.
    Venue price points sourced in COMPETITIVE_SCAN.md (venue serves addendum). */
 const COCO_VS = [
-  { k: "Serve size", fresh: "250–450 ml, luck of the nut", niu: "200 ml, every time" },
-  { k: "Weight behind the bar", fresh: "~1.5–2 kg per serve", niu: "0.39 kg per bottle" },
-  { k: "Chill time", fresh: "hours for a crate", niu: "minutes in ice" },
-  { k: "Shelf life", fresh: "days, refrigerated", niu: "12 months, no fridge" },
+  { k: "Serve size", fresh: "200–300 ml, luck of the nut", niu: "200 ml, every time" },
+  { k: "Weight behind the bar", fresh: "~1.3 kg per serve", niu: "0.39 kg per bottle" },
+  { k: "Chill time", fresh: "hours for a crate at 3–6 °C", niu: "minutes in ice" },
+  { k: "Shelf life", fresh: "1–2 weeks chilled, days ambient", niu: "12 months, no fridge" },
   { k: "Prep", fresh: "machete + trained hands", niu: "twist the cap" },
-  { k: "After the serve", fresh: "2 kg of husk to haul", niu: "a glass bottle back" },
+  { k: "After the serve", fresh: "~1 kg of husk per serve to haul", niu: "a glass bottle back" },
+] as const;
+
+// Venue price points for the fresh-coconut ritual — sourced in
+// COMPETITIVE_SCAN.md (venue serves addendum, Jul 2026).
+const COCO_PRICES = [
+  { n: "$14", where: "Club Space, Miami", what: "fresh coconut at the sunrise terrace — a viral ritual with its own TikTok pages" },
+  { n: "$10 / $30", where: "Wynn resorts, Las Vegas", what: "CocoTaps tapped coconut, plain / with rum — ~1,800 nuts a week across 20+ Strip resorts" },
+  { n: "~$5", where: "what the venue pays", what: "wholesale per delivered nut — for an unpredictable pour that dies in weeks" },
+  { n: "4,800", where: "beach clubs worldwide", what: "a ~$6.8B market, and almost none of them run a fresh-coconut program" },
 ] as const;
 
 function Daylight() {
@@ -608,6 +617,21 @@ function Daylight() {
             a straw at premium prices. The demand is proven at the till; the
             logistics are the pain. NIU keeps the coconut moment and drops the
             machete.
+          </p>
+        </Reveal>
+        <Reveal delay={120}>
+          <div className="mt-12 grid gap-4 md:grid-cols-4">
+            {COCO_PRICES.map((c) => (
+              <div key={c.where} className="rounded-lg border border-espresso/15 bg-white/40 p-5">
+                <p className="font-display text-3xl text-[#B06212]">{c.n}</p>
+                <p className="mt-1 text-sm font-semibold text-espresso/85">{c.where}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-espresso/55">{c.what}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-xs text-espresso/40">
+            Menu and wholesale figures from press, venue menus and supplier filings, 2024–26 —
+            details and sources in the competitive scan.
           </p>
         </Reveal>
         <Reveal delay={150}>
@@ -633,7 +657,9 @@ function Daylight() {
             premium serve scales the same ritual to every parasol: stackable
             cases, minutes to chill, a consistent 200 ml pour, and a label that
             belongs at the table. Perfect for the hours when nobody wants
-            alcohol yet — and the sun does the selling.
+            alcohol yet — and the sun does the selling. The ceiling is generous:
+            against a $14 nut — or the €14 a top Ibiza club charges for plain
+            still water — a premium bottled coconut serve reads as fair.
           </p>
         </Reveal>
       </div>
