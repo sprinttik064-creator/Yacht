@@ -3,6 +3,7 @@ import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
 import { asset } from "@/lib/asset";
 import { SUBSTANCES } from "@/lib/science-data";
+import { TOTALS } from "@/lib/plan-data";
 
 const FLAVORS = [
   {
@@ -90,6 +91,7 @@ export default function Home() {
       <HydrationEdge />
       <ScienceTeaser />
       <Brandbook />
+      <PlanCTA />
       <LastCall />
     </main>
   );
@@ -122,24 +124,6 @@ function About() {
           <p className="mt-4 max-w-xl text-sm text-cream/50 italic">
             [Placeholder copy — final text to be refined together.]
           </p>
-        </Reveal>
-        <Reveal delay={250}>
-          <div className="mt-14">
-            <p className="mb-4 text-xs tracking-[0.4em] text-cream/50 uppercase">
-              For partners &amp; investors
-            </p>
-            <Link
-              href="/plan"
-              className="cta-glow inline-flex items-center gap-3 rounded-full bg-amber px-10 py-5 text-base font-bold tracking-[0.15em] text-espresso uppercase transition-transform duration-300 hover:scale-105"
-            >
-              View the business plan
-              <span aria-hidden>→</span>
-            </Link>
-            <p className="mt-4 max-w-md text-sm text-cream/45">
-              A year-one model built venue by venue on HUGEL&apos;s tour
-              calendar — shows, standing accounts, bottles, revenue.
-            </p>
-          </div>
         </Reveal>
       </div>
     </section>
@@ -928,6 +912,60 @@ function Brandbook() {
             </div>
           </Reveal>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* The business-plan invitation: one loud amber block right before last call,
+   headline numbers pulled live from the plan model so they never drift. */
+function PlanCTA() {
+  const stats = [
+    { v: String(TOTALS.shows), l: "shows in year one" },
+    { v: `${Math.round(TOTALS.bottles / 1000)}k`, l: "bottles poured" },
+    { v: "16", l: "standing accounts" },
+    { v: `€${Math.round(TOTALS.revenue / 1000)}k`, l: "base-case revenue" },
+  ];
+  return (
+    <section className="relative overflow-hidden bg-espresso">
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber/10 blur-[140px]" />
+      <div className="relative mx-auto max-w-5xl px-6 py-32">
+        <Reveal>
+          <div className="rounded-2xl border border-amber/50 bg-espresso-2/80 px-8 py-14 text-center shadow-[0_0_90px_rgba(232,163,77,0.14)] md:px-16">
+            <p className="mb-4 text-xs tracking-[0.5em] text-amber uppercase">
+              For partners &amp; investors
+            </p>
+            <h2 className="font-display text-4xl leading-tight md:text-6xl">
+              The numbers behind the night
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-cream/70">
+              A year-one model built venue by venue on HUGEL&apos;s tour
+              calendar — every show, every standing account, every bottle.
+            </p>
+            <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-y-10 md:grid-cols-4">
+              {stats.map((s) => (
+                <div key={s.l}>
+                  <p className="font-display text-4xl text-amber md:text-5xl">{s.v}</p>
+                  <p className="mt-2 text-xs tracking-widest text-cream/50 uppercase">
+                    {s.l}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-12">
+              <Link
+                href="/plan"
+                className="cta-glow inline-flex items-center gap-3 rounded-full bg-amber px-10 py-5 text-base font-bold tracking-[0.15em] text-espresso uppercase transition-transform duration-300 hover:scale-105"
+              >
+                View the business plan
+                <span aria-hidden>→</span>
+              </Link>
+              <p className="mt-5 text-xs tracking-widest text-cream/40 uppercase">
+                Interactive dashboard · monthly build-up · regions · assumptions
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
