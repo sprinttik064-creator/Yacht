@@ -120,6 +120,60 @@ export const PHASES = [
   {
     q: "Phase 3 · Apr–Jun 2027",
     title: "Season two at scale",
-    text: "Ibiza year-two with NIU as the house mixer from opening week, EDC Week Vegas, EU festival season. Retail groundwork starts here — the path to the Y3 €2.4m case.",
+    text: "Ibiza year-two with NIU as the house mixer from opening week, EDC Week Vegas, EU festival season. Hotel-group and distributor conversations start here, off the back of a proven season.",
   },
+] as const;
+
+/* ------------------------------------------------------------------ */
+/* Five-year channel build — clubs first (brand), then hotels & bars   */
+/* (distribution), then premium retail (scale).                        */
+/*                                                                     */
+/* Y1 is the bottom-up calendar model above. Y2+ are channel-level     */
+/* cases built from per-account run-rates and benchmarked on premium-  */
+/* mixer precedents: Thomas Henry grew €5m (2014) → €34m (2020) on the */
+/* on-trade-first playbook; Fever-Tree runs ~55% on-trade and made the */
+/* 200 ml glass single-serve the category standard; Vita Coco proves   */
+/* coconut water scales past $400m in retail.                          */
+/*                                                                     */
+/* Per-point run-rates (annual, wholesale):                            */
+/*   club / beach-club standing account  ≈ €11k  (tiered, in-season)   */
+/*   hotel & bar account via distributor ≈ €2k   (~30 btl/wk, net)     */
+/*   premium retail door                 ≈ €800  (+ e-com on top)      */
+/* ------------------------------------------------------------------ */
+
+export const YEARS = [
+  { y: "Y1", fy: "26/27", clubs: 0.1, bars: 0, retail: 0, pos: 16, note: "HUGEL calendar seeds 16 standing club accounts — the proof of serve" },
+  { y: "Y2", fy: "27/28", clubs: 0.75, bars: 0.15, retail: 0, pos: 85, note: "~65 clubs & beach clubs (Ibiza, Vegas, Miami, Tulum, Dubai) · first hotel groups" },
+  { y: "Y3", fy: "28/29", clubs: 1.6, bars: 1.2, retail: 0.4, pos: 1250, note: "on-trade distributors DE/ES/US · ~600 hotel & bar accounts · premium-retail launch" },
+  { y: "Y4", fy: "29/30", clubs: 2.7, bars: 2.9, retail: 2.2, pos: 4300, note: "~1,500 bars & hotels · ~2,500 retail doors + e-com" },
+  { y: "Y5", fy: "30/31", clubs: 3.2, bars: 4.9, retail: 4.4, pos: 8800, note: "three channels compounding — the €12m year" },
+] as const;
+
+export const YEAR_TOTALS = YEARS.map((r) => ({
+  label: r.y,
+  total: +(r.clubs + r.bars + r.retail).toFixed(2),
+}));
+
+export const CHANNELS = [
+  {
+    q: "Channel 1 · Years 1–2",
+    title: "Premium clubs & beach clubs",
+    text: "Scarcity first: NIU exists only on bottle-service tables and beach-club rails on the HUGEL circuit. The most photographed rooms in nightlife do the advertising; standing accounts prove the reorder economics.",
+  },
+  {
+    q: "Channel 2 · Years 2–4",
+    title: "Hotels & bars",
+    text: "The Fever-Tree move: premium on-trade distribution through mixer distributors and hotel groups. A 200 ml glass serve next to every dark spirit and every cocktail program — ~€2k per account per year, thousands of accounts addressable.",
+  },
+  {
+    q: "Channel 3 · Years 3–5",
+    title: "Premium retail & e-com",
+    text: "Only once the brand is loaded: department-store food halls, premium grocery, travel retail, DTC. Price integrity holds because the club serve set the reference. Retail is where the category giants live — Vita Coco proves the ceiling.",
+  },
+] as const;
+
+export const BENCHMARKS = [
+  { k: "Thomas Henry (Berlin)", v: "€5m → €34m in 6 years, on-trade first" },
+  { k: "Fever-Tree", v: "£375m FY25 · ~55% on-trade · 200 ml glass standard" },
+  { k: "Vita Coco", v: "$400m+ retail — the category scales" },
 ] as const;

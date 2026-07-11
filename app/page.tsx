@@ -3,7 +3,7 @@ import HeroScrub from "@/components/HeroScrub";
 import Reveal from "@/components/Reveal";
 import { asset } from "@/lib/asset";
 import { SUBSTANCES } from "@/lib/science-data";
-import { TOTALS } from "@/lib/plan-data";
+import { TOTALS, YEAR_TOTALS } from "@/lib/plan-data";
 
 const FLAVORS = [
   {
@@ -121,8 +121,11 @@ function About() {
             in 200 ml amber glass, built to stand next to the ice bucket, not
             on a shelf of sports drinks.
           </p>
-          <p className="mt-4 max-w-xl text-sm text-cream/50 italic">
-            [Placeholder copy — final text to be refined together.]
+          <p className="mt-8 max-w-xl border-l-2 border-amber/60 pl-5 leading-relaxed text-cream/70">
+            <span className="font-semibold text-amber">Niu</span> is the word
+            for coconut across the Pacific — Hawaiian, Samoan, Tongan, Fijian —
+            carried island to island for thousands of years. The oldest name
+            for the fruit, on the youngest table it has ever stood on.
           </p>
         </Reveal>
       </div>
@@ -408,16 +411,17 @@ function Benchmark() {
   );
 }
 
-/* The design gap, shown with the real shelf: five actual category packs
+/* The design gap, shown with the real shelf: six actual category packs
    arranged from loudest to closest-to-premium, then the object none of them
    makes — an amber glass bottle built for the table. Facts per
    COMPETITIVE_SCAN.md; competitor marks belong to their owners. */
 const SHELF = [
-  { img: "/img/shelf/vaivai.webp", name: "Vaïvaï", format: "330 ml tetra", note: "confetti carton", best: false },
-  { img: "/img/shelf/vita-coco.webp", name: "Vita Coco", format: "330 ml tetra", note: "the supermarket original", best: false },
-  { img: "/img/shelf/zico.webp", name: "ZICO", format: "330 ml tetra", note: "sports-aisle blue", best: false },
-  { img: "/img/shelf/100-coconuts.webp", name: "100 Coconuts", format: "325 ml can", note: "the category's best can", best: true },
-  { img: "/img/shelf/bervera.webp", name: "Bervera", format: "200 ml PET", note: "the category's best bottle", best: true },
+  { img: "/img/shelf/vaivai.webp", name: "Vaïvaï", format: "330 ml tetra", note: "confetti carton", badge: null },
+  { img: "/img/shelf/vita-coco.webp", name: "Vita Coco", format: "330 ml tetra", note: "the supermarket original", badge: null },
+  { img: "/img/shelf/zico.webp", name: "ZICO", format: "330 ml tetra", note: "sports-aisle blue", badge: null },
+  { img: "/img/shelf/100-coconuts.webp", name: "100 Coconuts", format: "325 ml can", note: "the category's best can", badge: "category's best" },
+  { img: "/img/shelf/bervera.webp", name: "Bervera", format: "200 ml PET", note: "the category's best bottle", badge: "category's best" },
+  { img: "/img/shelf/fountain-of-youth.webp", name: "Fountain of Youth", format: "520 ml can", note: "Berlin hotel darling — brilliant, hipster, local", badge: "best design" },
 ] as const;
 
 function ShelfProblem() {
@@ -427,22 +431,23 @@ function ShelfProblem() {
         <Reveal>
           <p className="mb-2 text-xs tracking-[0.5em] text-amber uppercase">The shelf problem</p>
           <h2 className="font-display max-w-3xl text-4xl leading-tight md:text-5xl">
-            Five ways the category shows up. And the one it forgot.
+            Six ways the category shows up. And the one it forgot.
           </h2>
           <p className="mt-6 max-w-2xl text-lg text-cream/70">
-            The real shelf, arranged from loud to almost-premium. Even the two
-            strongest designs in coconut water are a slim can and a pastel PET —
-            made for the fridge shelf and the gym bag. Nobody has made the
-            object a top venue can set next to champagne.
+            The real shelf, arranged from loud to almost-premium. Even the
+            category&apos;s best-looking work — Berlin&apos;s Fountain of Youth
+            — is a half-liter party can from a hotel collective that never left
+            home. Nobody has made the object a top venue can set next to
+            champagne.
           </p>
         </Reveal>
         <Reveal delay={150}>
-          <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-6">
+          <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
             {SHELF.map((s) => (
               <div key={s.name} className="flex flex-col">
                 <div
                   className={`relative aspect-[3/4] overflow-hidden rounded-lg border bg-espresso ${
-                    s.best ? "border-cream/25" : "border-cream/10"
+                    s.badge ? "border-cream/25" : "border-cream/10"
                   }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -451,9 +456,9 @@ function ShelfProblem() {
                     alt={`${s.name} packaging`}
                     className="h-full w-full object-cover opacity-80 saturate-[0.85]"
                   />
-                  {s.best && (
+                  {s.badge && (
                     <span className="absolute top-2 left-2 rounded-full bg-espresso/80 px-2.5 py-1 text-[9px] tracking-[0.15em] text-cream/70 uppercase">
-                      category&apos;s best
+                      {s.badge}
                     </span>
                   )}
                 </div>
@@ -462,7 +467,7 @@ function ShelfProblem() {
               </div>
             ))}
             {/* the missing object */}
-            <div className="col-span-2 flex flex-col md:col-span-1">
+            <div className="col-span-2 flex flex-col lg:col-span-1">
               <div className="relative aspect-[3/4] overflow-hidden rounded-lg border-2 border-amber bg-espresso shadow-[0_0_50px_rgba(232,163,77,0.15)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -922,9 +927,9 @@ function Brandbook() {
 function PlanCTA() {
   const stats = [
     { v: String(TOTALS.shows), l: "shows in year one" },
-    { v: `${Math.round(TOTALS.bottles / 1000)}k`, l: "bottles poured" },
-    { v: "16", l: "standing accounts" },
-    { v: `€${Math.round(TOTALS.revenue / 1000)}k`, l: "base-case revenue" },
+    { v: "3", l: "channels: clubs · bars · retail" },
+    { v: `€${(YEAR_TOTALS[2].total).toFixed(1)}m`, l: "year-three revenue" },
+    { v: `€${Math.floor(YEAR_TOTALS[4].total)}m+`, l: "year-five run-rate" },
   ];
   return (
     <section className="relative overflow-hidden bg-espresso">
@@ -939,8 +944,9 @@ function PlanCTA() {
               The numbers behind the night
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-cream/70">
-              A year-one model built venue by venue on HUGEL&apos;s tour
-              calendar — every show, every standing account, every bottle.
+              Year one is built venue by venue on HUGEL&apos;s tour calendar.
+              Then the Fever-Tree sequence: premium clubs load the brand,
+              hotels &amp; bars scale it, retail cashes it in.
             </p>
             <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-y-10 md:grid-cols-4">
               {stats.map((s) => (

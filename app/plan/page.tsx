@@ -1,8 +1,10 @@
 "use client";
 
-import { CumulativeLine, MonthlyBars, RegionBars, SERIES } from "@/components/PlanCharts";
+import { CumulativeLine, MonthlyBars, RegionBars, SERIES, YearStack } from "@/components/PlanCharts";
 import {
   ASSUMPTIONS,
+  BENCHMARKS,
+  CHANNELS,
   CUMULATIVE,
   MONTHLY,
   PHASES,
@@ -11,9 +13,12 @@ import {
   SHOWS,
   TARGET,
   TOTALS,
+  YEARS,
+  YEAR_TOTALS,
 } from "@/lib/plan-data";
 
 const eur = (v: number) => `€${(v / 1000).toFixed(0)}k`;
+const eurM = (v: number) => (v >= 1 ? `€${v.toFixed(1)}m` : `€${Math.round(v * 1000)}k`);
 const kBottles = (v: number) => `${(v / 1000).toFixed(1)}k btl`;
 
 function Kicker({ children }: { children: React.ReactNode }) {
@@ -35,11 +40,124 @@ export default function Plan() {
         {/* header */}
         <header className="pb-4">
           <p className="text-xs tracking-[0.5em] text-amber uppercase">
-            NIU × HUGEL · Business plan · FY Jul 2026 – Jun 2027
+            NIU × HUGEL · Business plan · 2026 – 2031
           </p>
           <h1 className="font-display mt-4 text-4xl md:text-6xl">
-            The tour is the distribution.
+            From the DJ booth to €12m.
           </h1>
+          <p className="mt-4 max-w-2xl text-cream/65">
+            Three channels, in strict order: the HUGEL circuit makes NIU the
+            bottle-service mixer of the most photographed clubs on earth; that
+            brand equity opens hotels &amp; bars through premium-mixer
+            distribution; retail comes last, when the price reference is set.
+            The same sequence Fever-Tree and Thomas Henry rode — applied to a
+            category with no premium incumbent.
+          </p>
+        </header>
+
+        {/* headline KPI tiles — the five-year arc */}
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {[
+            [eur(TOTALS.revenue), "year one — the proof", `${TOTALS.shows} shows · ${TOTALS.signed} standing club accounts`],
+            [eurM(YEAR_TOTALS[2].total), "year three", "distributors + first retail listings"],
+            [eurM(YEAR_TOTALS[4].total), "year five", "clubs + hotels & bars + retail compounding"],
+            [`${(YEARS[4].pos / 1000).toFixed(1)}k`, "points of sale by Y5", "clubs, bars, hotels, retail doors"],
+          ].map(([n, l, d]) => (
+            <Card key={l as string} className="!p-5">
+              <p className="font-display text-3xl text-amber md:text-4xl">{n}</p>
+              <p className="mt-1 text-sm text-cream">{l}</p>
+              <p className="mt-1 text-xs text-cream/45">{d}</p>
+            </Card>
+          ))}
+        </div>
+
+        {/* five-year build */}
+        <div className="grid gap-6 lg:grid-cols-5">
+          <Card className="lg:col-span-3">
+            <Kicker>The five-year build — revenue by channel</Kicker>
+            <p className="mb-4 text-sm text-cream/55">
+              Y1 is the bottom-up tour model below. Y2–Y5 are channel cases from
+              per-account run-rates: club account ~€11k/yr · hotel &amp; bar
+              account ~€2k/yr · retail door ~€800/yr.
+            </p>
+            <YearStack
+              data={YEARS.map((r) => ({
+                label: r.y,
+                sub: r.fy,
+                note: r.note,
+                segments: [
+                  { name: "Premium clubs", value: r.clubs, color: SERIES.amber },
+                  { name: "Hotels & bars", value: r.bars, color: SERIES.green },
+                  { name: "Retail & e-com", value: r.retail, color: SERIES.blue },
+                ],
+              }))}
+              format={eurM}
+            />
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-xs text-cream/60">
+              {[
+                ["Premium clubs", SERIES.amber],
+                ["Hotels & bars", SERIES.green],
+                ["Retail & e-com", SERIES.blue],
+              ].map(([n, c]) => (
+                <span key={n} className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-[3px]" style={{ background: c }} />
+                  {n}
+                </span>
+              ))}
+            </div>
+          </Card>
+          <Card className="lg:col-span-2">
+            <Kicker>Why these numbers are believable</Kicker>
+            <div className="mt-4 space-y-3">
+              {BENCHMARKS.map((b) => (
+                <div key={b.k} className="flex items-end text-sm">
+                  <span className="shrink-0 text-cream">{b.k}</span>
+                  <span className="menu-leader" />
+                  <span className="max-w-[55%] text-right text-cream/55">{b.v}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-xs leading-relaxed text-cream/40">
+              Thomas Henry went €5m → €34m in six years selling premium mixers
+              on-trade-first from Berlin. Fever-Tree built a ~£375m business on
+              the 200 ml glass serve. NIU&apos;s Y5 case (€12.5m) asks for a
+              fraction of either curve — in a category where no premium mixer
+              exists yet.
+            </p>
+            <div className="mt-6 border-t border-cream/10 pt-4">
+              <div className="grid grid-cols-3 gap-2 text-center">
+                {YEARS.filter((_, i) => [0, 2, 4].includes(i)).map((r) => (
+                  <div key={r.y}>
+                    <p className="font-display text-xl text-cream">
+                      {eurM(+(r.clubs + r.bars + r.retail).toFixed(2))}
+                    </p>
+                    <p className="text-[11px] tracking-wide text-cream/45 uppercase">{r.y} · FY {r.fy}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* channel strategy */}
+        <div className="grid gap-6 md:grid-cols-3">
+          {CHANNELS.map((c) => (
+            <Card key={c.q}>
+              <p className="text-xs tracking-[0.3em] text-amber uppercase">{c.q}</p>
+              <p className="font-display mt-3 text-xl">{c.title}</p>
+              <p className="mt-3 text-sm leading-relaxed text-cream/60">{c.text}</p>
+            </Card>
+          ))}
+        </div>
+
+        {/* ---- year one: the proof ---- */}
+        <header className="pt-10 pb-2">
+          <p className="text-xs tracking-[0.5em] text-amber uppercase">
+            Year one in detail · FY Jul 2026 – Jun 2027
+          </p>
+          <h2 className="font-display mt-3 text-3xl md:text-5xl">
+            The tour is the distribution.
+          </h2>
           <p className="mt-4 max-w-2xl text-cream/65">
             Every HUGEL show puts NIU on a bottle-service table; every venue that
             reorders becomes a standing account. Calendar-only base case, anchored
@@ -49,7 +167,7 @@ export default function Plan() {
           </p>
         </header>
 
-        {/* KPI tiles */}
+        {/* Y1 KPI tiles */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {[
             [String(TOTALS.shows), "shows in 12 months", "Hï Ibiza weekly + Wynn Vegas + tour"],
@@ -227,8 +345,9 @@ export default function Plan() {
         </Card>
 
         <p className="pt-2 pb-8 text-center text-xs text-cream/35">
-          NIU · internal concept material · calendar sources: Hï Ibiza, Wynn Nightlife,
-          festival lineups, tour aggregators · Jul 2026
+          NIU · internal concept material · Y1 from the announced calendar (Hï Ibiza,
+          Wynn Nightlife, festival lineups, tour aggregators) · Y2–Y5 are channel
+          cases benchmarked on Thomas Henry / Fever-Tree, not commitments · Jul 2026
         </p>
       </div>
     </main>

@@ -198,6 +198,102 @@ export function CumulativeLine({
   );
 }
 
+/** Stacked year bars — one bar per year, segments per channel, total on top. */
+export function YearStack({
+  data,
+  format,
+}: {
+  data: {
+    label: string;
+    sub: string;
+    note: string;
+    segments: { name: string; value: number; color: string }[];
+  }[];
+  format: (v: number) => string;
+}) {
+  const [tip, setTip] = useState<Tip>(null);
+  const W = 720;
+  const H = 300;
+  const PAD = { l: 8, r: 8, t: 34, b: 40 };
+  const totals = data.map((d) => d.segments.reduce((s, x) => s + x.value, 0));
+  const max = Math.max(...totals) * 1.12;
+  const bw = (W - PAD.l - PAD.r) / data.length;
+
+  return (
+    <div className="relative">
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Revenue by year and channel">
+        {[0.25, 0.5, 0.75, 1].map((f) => (
+          <line
+            key={f}
+            x1={PAD.l}
+            x2={W - PAD.r}
+            y1={PAD.t + (H - PAD.t - PAD.b) * (1 - f)}
+            y2={PAD.t + (H - PAD.t - PAD.b) * (1 - f)}
+            stroke={GRID}
+            strokeWidth="1"
+          />
+        ))}
+        {data.map((d, i) => {
+          const x = PAD.l + i * bw + bw * 0.24;
+          const w = bw * 0.52;
+          let yCursor = H - PAD.b;
+          const total = totals[i];
+          return (
+            <g key={d.label}>
+              {d.segments.map((s, si) => {
+                if (s.value <= 0) return null;
+                const h = ((H - PAD.t - PAD.b) * s.value) / max;
+                yCursor -= h;
+                const y = yCursor;
+                const isTop = si === d.segments.filter((q) => q.value > 0).length - 1
+                  || d.segments.slice(si + 1).every((q) => q.value <= 0);
+                return (
+                  <rect
+                    key={s.name}
+                    x={x}
+                    y={y}
+                    width={w}
+                    height={Math.max(h - 1.5, 1)}
+                    rx={isTop ? 4 : 1.5}
+                    fill={s.color}
+                    onMouseEnter={(e) => {
+                      const host = (e.currentTarget.ownerSVGElement!.parentElement as HTMLElement).getBoundingClientRect();
+                      const r = e.currentTarget.getBoundingClientRect();
+                      setTip({
+                        x: r.left + r.width / 2 - host.left,
+                        y: r.top - host.top,
+                        title: `${d.label} '${d.sub} — ${s.name}`,
+                        lines: [format(s.value), d.note],
+                      });
+                    }}
+                    onMouseLeave={() => setTip(null)}
+                  />
+                );
+              })}
+              <text
+                x={x + w / 2}
+                y={H - PAD.b - ((H - PAD.t - PAD.b) * total) / max - 8}
+                textAnchor="middle"
+                fontSize="13"
+                fill={INK}
+              >
+                {format(total)}
+              </text>
+              <text x={PAD.l + i * bw + bw / 2} y={H - 22} textAnchor="middle" fontSize="11" fill={INK_MUTED}>
+                {d.label}
+              </text>
+              <text x={PAD.l + i * bw + bw / 2} y={H - 8} textAnchor="middle" fontSize="9" fill={INK_FAINT}>
+                &apos;{d.sub}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+      <Tooltip tip={tip} />
+    </div>
+  );
+}
+
 /** Horizontal category bars with direct labels (fixed categorical order). */
 export function RegionBars({
   data,
