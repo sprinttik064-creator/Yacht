@@ -58,7 +58,7 @@ export default function Plan() {
         {/* headline KPI tiles — the five-year arc */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {[
-            [eur(TOTALS.revenue), "year one — the proof", `${TOTALS.shows} shows · ${TOTALS.signed} standing club accounts`],
+            [String(TOTALS.shows), "shows in year one", `${TOTALS.signed} standing club accounts — the proof of serve`],
             [eurM(YEAR_TOTALS[2].total), "year three", "distributors + first retail listings"],
             [eurM(YEAR_TOTALS[4].total), "year five", "clubs + hotels & bars + retail compounding"],
             [`${(YEARS[4].pos / 1000).toFixed(1)}k`, "points of sale by Y5", "clubs, bars, hotels, retail doors"],
@@ -76,15 +76,16 @@ export default function Plan() {
           <Card className="lg:col-span-3">
             <Kicker>The five-year build — revenue by channel</Kicker>
             <p className="mb-4 text-sm text-cream/55">
-              Y1 is the bottom-up tour model below. Y2–Y5 are channel cases from
-              per-account run-rates: club account ~€11k/yr · hotel &amp; bar
-              account ~€2k/yr · retail door ~€800/yr.
+              Y1 is the bottom-up tour model (appendix below). Y2–Y5 are channel
+              cases from per-account run-rates: club account ~€11k/yr · hotel
+              &amp; bar account ~€2k/yr · retail door ~€800/yr.
             </p>
             <YearStack
               data={YEARS.map((r) => ({
                 label: r.y,
                 sub: r.fy,
                 note: r.note,
+                totalLabel: r.y === "Y1" ? "the proof" : undefined,
                 segments: [
                   { name: "Premium clubs", value: r.clubs, color: SERIES.amber },
                   { name: "Hotels & bars", value: r.bars, color: SERIES.green },
@@ -126,7 +127,7 @@ export default function Plan() {
             </p>
             <div className="mt-6 border-t border-cream/10 pt-4">
               <div className="grid grid-cols-3 gap-2 text-center">
-                {YEARS.filter((_, i) => [0, 2, 4].includes(i)).map((r) => (
+                {YEARS.filter((_, i) => [2, 3, 4].includes(i)).map((r) => (
                   <div key={r.y}>
                     <p className="font-display text-xl text-cream">
                       {eurM(+(r.clubs + r.bars + r.retail).toFixed(2))}
@@ -150,14 +151,30 @@ export default function Plan() {
           ))}
         </div>
 
-        {/* ---- year one: the proof ---- */}
-        <header className="pt-10 pb-2">
-          <p className="text-xs tracking-[0.5em] text-amber uppercase">
-            Year one in detail · FY Jul 2026 – Jun 2027
-          </p>
-          <h2 className="font-display mt-3 text-3xl md:text-5xl">
-            The tour is the distribution.
-          </h2>
+        {/* ---- year one: the operating model, collapsed for reference ---- */}
+        <details className="group pt-8">
+          <summary className="cursor-pointer list-none rounded-lg border border-cream/10 bg-espresso-2 px-6 py-5 transition-colors hover:border-cream/25 md:px-8 [&::-webkit-details-marker]:hidden">
+            <p className="text-xs tracking-[0.4em] text-amber uppercase">
+              Appendix · Year one in detail
+            </p>
+            <div className="mt-2 flex items-center justify-between gap-4">
+              <p className="font-display text-xl md:text-2xl">
+                The tour is the distribution — month-by-month operating model
+              </p>
+              <span className="shrink-0 text-xs tracking-widest text-cream/45 uppercase group-open:hidden">
+                open ↓
+              </span>
+              <span className="hidden shrink-0 text-xs tracking-widest text-cream/45 uppercase group-open:inline">
+                close ↑
+              </span>
+            </div>
+            <p className="mt-2 max-w-2xl text-sm text-cream/50">
+              For reference: the bottom-up FY 26/27 seeding model — every show,
+              venue, account and bottle behind the proof year.
+            </p>
+          </summary>
+          <div className="mt-6 space-y-6">
+        <header className="pb-2">
           <p className="mt-4 max-w-2xl text-cream/65">
             Every HUGEL show puts NIU on a bottle-service table; every venue that
             reorders becomes a standing account. Calendar-only base case, anchored
@@ -343,6 +360,8 @@ export default function Plan() {
             </div>
           </details>
         </Card>
+          </div>
+        </details>
 
         <p className="pt-2 pb-8 text-center text-xs text-cream/35">
           NIU · internal concept material · Y1 from the announced calendar (Hï Ibiza,

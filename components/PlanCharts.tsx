@@ -207,6 +207,7 @@ export function YearStack({
     label: string;
     sub: string;
     note: string;
+    totalLabel?: string;
     segments: { name: string; value: number; color: string }[];
   }[];
   format: (v: number) => string;
@@ -275,9 +276,9 @@ export function YearStack({
                 y={H - PAD.b - ((H - PAD.t - PAD.b) * total) / max - 8}
                 textAnchor="middle"
                 fontSize="13"
-                fill={INK}
+                fill={d.totalLabel ? INK_MUTED : INK}
               >
-                {format(total)}
+                {d.totalLabel ?? format(total)}
               </text>
               <text x={PAD.l + i * bw + bw / 2} y={H - 22} textAnchor="middle" fontSize="11" fill={INK_MUTED}>
                 {d.label}
