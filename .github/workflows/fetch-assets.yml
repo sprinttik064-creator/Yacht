@@ -11,31 +11,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download front-of-pack images via OpenFoodFacts API + Shopify
+      - name: Download Fountain of Youth pack shot (Shopify JSON + og:image fallback)
         run: |
           set -e
           mkdir -p assets-src/competitors
-          fetch_off () { # barcode, out-name
-            url=$(curl -sf "https://world.openfoodfacts.org/api/v2/product/$1.json?fields=image_front_url" | jq -r '.product.image_front_url // empty')
-            if [ -n "$url" ]; then
-              curl -sfL "$url" -o "assets-src/competitors/$2.jpg" && echo "OK  $2  $url" || echo "DL-FAIL $2"
-            else
-              echo "NO-IMG $2"
+          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125 Safari/537.36"
+          furl=$(curl -sfL -A "$UA" "https://shop.fountainofyouth.gold/products/new-site-fountain-of-youth.json" | jq -r '.product.images[0].src // empty' || true)
+          if [ -n "$furl" ]; then
+            curl -sfL -A "$UA" "$furl" -o assets-src/competitors/fountain-of-youth.jpg && echo "OK shopify $furl" || echo "DL-FAIL shopify"
+          fi
+          if [ ! -s assets-src/competitors/fountain-of-youth.jpg ]; then
+            furl=$(curl -sfL -A "$UA" "https://www.fountainofyouth.gold/" | grep -o 'property="og:image" content="[^"]*"' | head -1 | sed 's/.*content="//;s/"$//' || true)
+            if [ -n "$furl" ]; then
+              curl -sfL -A "$UA" "$furl" -o assets-src/competitors/fountain-of-youth.jpg && echo "OK og $furl" || echo "DL-FAIL og"
             fi
-          }
-          fetch_off 0898999000022 vita-coco-330
-          fetch_off 3770002316221 vaivai-330
-          fetch_off 0860004385400 100-coconuts-can
-          fetch_off 9300675055765 zico-330
-          fetch_off 5038862136174 innocent-1l
-          fetch_off 0859078002627 harmless-harvest
-          fetch_off 8935330210589 once-upon-a-coconut
-          # Bervera via Shopify product JSON
-          burl=$(curl -sf "https://bervera.com/products/100-pure-coconut-water-24pack.json" | jq -r '.product.images[0].src // empty')
-          if [ -n "$burl" ]; then
-            curl -sfL "$burl" -o assets-src/competitors/bervera-200.jpg && echo "OK bervera $burl" || echo "DL-FAIL bervera"
-          else
-            echo "NO-IMG bervera"
+          fi
+          if [ ! -s assets-src/competitors/fountain-of-youth.jpg ]; then
+            # last resort: first product image on the shop's products.json listing
+            furl=$(curl -sfL -A "$UA" "https://shop.fountainofyouth.gold/products.json?limit=10" | jq -r '[.products[].images[].src] | first // empty' || true)
+            if [ -n "$furl" ]; then
+              curl -sfL -A "$UA" "$furl" -o assets-src/competitors/fountain-of-youth.jpg && echo "OK listing $furl" || echo "DL-FAIL listing"
+            else
+              echo "NO-IMG fountain-of-youth"
+            fi
           fi
           ls -la assets-src/competitors/
       - name: Commit results
@@ -43,5 +41,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets-src/competitors
-          git diff --cached --quiet || git commit -m "Fetch competitor pack shots via OpenFoodFacts/Shopify (CI)"
+          git diff --cached --quiet || git commit -m "Fetch Fountain of Youth pack shot (CI)"
           git push
